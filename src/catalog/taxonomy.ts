@@ -24,3 +24,6 @@ export type Position = (typeof POSITIONS)[number];
 
 export const AUDIENCES = ['men', 'women', 'unisex'] as const;
 export type Audience = (typeof AUDIENCES)[number];
+
+export const SEASONS = ['winter', 'autumn', 'summer', 'spring'] as const;
+export type Season = (typeof SEASONS)[number];

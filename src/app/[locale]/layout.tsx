@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css';
+import '../globals.css';
 import { ThemeProvider } from '@/app/providers/theme-provider';
+import { isLocale } from '@/i18n/config';
+import { notFound } from 'next/navigation';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -18,14 +20,23 @@ export const metadata: Metadata = {
   description: 'fragrance e-commerce',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
+
+  if (!isLocale(locale)) {
+    notFound();
+  }
+
   return (
     <html
-      lang="en"
+      lang={locale}
+      dir={locale === 'en' ? 'ltr' : 'rtl'}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
