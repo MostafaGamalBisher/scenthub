@@ -1,3 +1,7 @@
 export default function Home() {
-  return <p>hi</p>;
+  return (
+    <p className="font-display text-page-title leading-page-title font-normal">
+      ScentHub
+    </p>
+  );
 }

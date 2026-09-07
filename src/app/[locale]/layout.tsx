@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ebGaramond } from '@/fonts/fonts';
 import { Geist, Geist_Mono } from 'next/font/google';
 import '../globals.css';
 import { ThemeProvider } from '@/app/providers/theme-provider';
@@ -37,7 +38,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={locale === 'en' ? 'ltr' : 'rtl'}
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${ebGaramond.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col">
