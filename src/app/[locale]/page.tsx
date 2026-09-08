@@ -1,6 +1,6 @@
 import { isLocale } from '@/i18n/config';
 import { notFound } from 'next/navigation';
-import ProductsList from './ProductsList';
+import ProductsList from '@/app/[locale]/ProductsList';
 import type { Locale } from '@/i18n/config';
 
 interface HomeProps {
@@ -14,11 +14,9 @@ export default async function Home({ params }: HomeProps) {
     notFound();
   }
 
-  const validLocale: Locale = locale;
-
   return (
     <div>
-      <ProductsList locale={validLocale} />
+      <ProductsList locale={locale} />
     </div>
   );
 }
