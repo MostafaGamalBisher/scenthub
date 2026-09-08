@@ -1,20 +1,9 @@
 import type { Metadata } from 'next';
-import { ebGaramond } from '@/fonts/fonts';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { amiri, ebGaramond, workSans, ibmPlexSansArabic } from '@/fonts/fonts';
 import '../globals.css';
 import { ThemeProvider } from '@/app/providers/theme-provider';
 import { isLocale } from '@/i18n/config';
 import { notFound } from 'next/navigation';
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
 
 export const metadata: Metadata = {
   title: 'scenthub',
@@ -38,10 +27,10 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={locale === 'en' ? 'ltr' : 'rtl'}
-      className={`${geistSans.variable} ${geistMono.variable} ${ebGaramond.variable} h-full antialiased`}
+      className={` ${ebGaramond.variable} ${amiri.variable} ${workSans.variable} ${ibmPlexSansArabic.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col">
+      <body className="flex min-h-full flex-col font-text">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
         </ThemeProvider>

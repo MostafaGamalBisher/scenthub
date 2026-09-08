@@ -185,8 +185,9 @@
      One stack serves both scripts — unicode-range in the @font-face means the
      browser picks per character. A component writes font-text once and gets
      Work Sans for Latin and IBM Plex Sans Arabic for Arabic automatically. */
-  --font-display: var(--font-eb-garamond), 'Amiri', serif;
-  --font-text: 'Work Sans', 'IBM Plex Sans Arabic', sans-serif;
+  --font-display: var(--font-eb-garamond), var(--font-amiri), serif;
+  --font-text:
+    var(--font-work-sans), var(--font-ibm-plex-sans-arabic), sans-serif;
 
   /* Sizes -> text-meta, text-body, text-price, text-section, text-page-title */
   --text-meta: var(--type-meta);
