@@ -1,5 +1,6 @@
 import type { Variant } from '@/catalog/products';
 import type { Locale } from '@/i18n/config';
+import { messages } from '@/i18n/messages';
 import { formatPrice } from '@/lib/format-price';
 
 interface ProductVariantsProps {
@@ -15,7 +16,9 @@ function ProductVariants({
     <ul>
       {productVariantsArray.map((variant) => (
         <li key={variant.id}>
-          <p>{variant.sizeMl}</p>
+          <p>
+            {variant.sizeMl} {messages[locale].units.ml}
+          </p>
           <p>{formatPrice(variant.priceHalalas, locale)}</p>
         </li>
       ))}

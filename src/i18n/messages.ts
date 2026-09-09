@@ -3,6 +3,7 @@ import type { Locale } from '@/i18n/config';
 
 export type Messages = {
   seasons: Record<Season, string>;
+  units: Record<'ml', string>;
 };
 
 export const messages = {
@@ -13,6 +14,9 @@ export const messages = {
       spring: 'Spring',
       summer: 'Summer',
     },
+    units: {
+      ml: 'mL',
+    },
   },
   ar: {
     seasons: {
@@ -20,6 +24,9 @@ export const messages = {
       autumn: 'خريف',
       spring: 'ربيع',
       summer: 'صيف',
+    },
+    units: {
+      ml: 'مل',
     },
   },
 } as const satisfies Record<Locale, Messages>;
