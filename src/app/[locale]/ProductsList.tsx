@@ -2,6 +2,7 @@ import { PRODUCTS } from '@/catalog/products';
 import type { Locale } from '@/i18n/config';
 import ProductSeasons from '@/app/[locale]/ProductSeasons';
 import ProductVariants from './ProductVariants';
+import { formatNumber } from './../../lib/format-number';
 
 interface ProductsListProps {
   locale: Locale;
@@ -17,7 +18,7 @@ function ProductsList({ locale }: ProductsListProps) {
         {productsEntries.map(([productId, product]) => (
           <li key={productId}>
             <h3>{product.name[locale]}</h3>
-            <span>{product.year}</span>
+            <span>{formatNumber(product.year, locale)}</span>
             <ProductSeasons
               locale={locale}
               productSeasonsArray={product.season}
