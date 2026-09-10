@@ -1,9 +1,13 @@
 import type { Locale } from '@/i18n/config';
 
-export function formatNumber(value: number, locale: Locale): string {
+export function formatNumber(
+  value: number,
+  locale: Locale,
+  useGrouping: boolean = true
+): string {
   const formatter = new Intl.NumberFormat(`${locale}-SA`, {
     style: 'decimal',
-    useGrouping: false,
+    useGrouping: useGrouping,
   });
 
   const formattedNumber: string = formatter.format(value);

@@ -1,7 +1,7 @@
 import { isLocale } from '@/i18n/config';
 import { notFound } from 'next/navigation';
 import ProductsList from '@/app/[locale]/ProductsList';
-import type { Locale } from '@/i18n/config';
+import { getProducts } from '@/catalog/server/products';
 
 interface HomeProps {
   params: Promise<{ locale: string }>;
@@ -14,9 +14,11 @@ export default async function Home({ params }: HomeProps) {
     notFound();
   }
 
+  const products = getProducts();
+
   return (
     <div>
-      <ProductsList locale={locale} />
+      <ProductsList locale={locale} products={products} />
     </div>
   );
 }

@@ -1,24 +1,25 @@
-import { PRODUCTS } from '@/catalog/products';
 import type { Locale } from '@/i18n/config';
 import ProductSeasons from '@/app/[locale]/ProductSeasons';
-import ProductVariants from './ProductVariants';
-import { formatNumber } from './../../lib/format-number';
+import ProductVariants from '@/app/[locale]/ProductVariants';
+import { formatNumber } from '@/lib/format-number';
+import type { CatalogProduct } from '@/catalog/products';
 
 interface ProductsListProps {
   locale: Locale;
+  products: readonly CatalogProduct[];
 }
 
-const productsEntries = Object.entries(PRODUCTS);
-
-function ProductsList({ locale }: ProductsListProps) {
+function ProductsList({ locale, products }: ProductsListProps) {
   return (
     <div>
       <p>products list</p>
       <ul>
-        {productsEntries.map(([productId, product]) => (
-          <li key={productId}>
+        {products.map((product) => (
+          <li key={product.id}>
             <h3>{product.name[locale]}</h3>
-            <span>{formatNumber(product.year, locale)}</span>
+            {product.year !== undefined ? (
+              <span>{formatNumber(product.year, locale, false)}</span>
+            ) : null}
             <ProductSeasons
               locale={locale}
               productSeasonsArray={product.season}

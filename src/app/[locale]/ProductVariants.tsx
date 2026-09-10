@@ -18,7 +18,8 @@ function ProductVariants({
       {productVariantsArray.map((variant) => (
         <li key={variant.id}>
           <p>
-            {formatNumber(variant.sizeMl, locale)} {messages[locale].units.ml}
+            {formatNumber(variant.sizeMl, locale, false)}{' '}
+            {messages[locale].units.ml}
           </p>
           <p>{formatPrice(variant.priceHalalas, locale)}</p>
         </li>

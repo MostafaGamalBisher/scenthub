@@ -28,6 +28,8 @@ export type Product = {
   notes: Notes;
 };
 
+export type CatalogProduct = { id: string } & Product;
+
 export const PRODUCTS = {
   'alexandria-ii': {
     name: { en: 'Alexandria II', ar: 'أليكساندريا 2' },
