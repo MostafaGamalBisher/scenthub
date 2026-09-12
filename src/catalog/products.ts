@@ -1,5 +1,6 @@
 import type {
   Audience,
+  Availability,
   Concentration,
   Localized,
   Position,
@@ -13,6 +14,7 @@ export type Variant = {
   sizeMl: number;
   /** VAT-inclusive selling price in integer halalas. */
   priceHalalas: number;
+  availability: Availability;
 };
 
 export type Notes = Record<Position, readonly NoteId[]>;
@@ -39,8 +41,18 @@ export const PRODUCTS = {
     year: 2000,
     season: ['winter'],
     variants: [
-      { id: 'alex-100', sizeMl: 100, priceHalalas: 200000 },
-      { id: 'alex-50', sizeMl: 50, priceHalalas: 100000 },
+      {
+        id: 'alex-100',
+        sizeMl: 100,
+        priceHalalas: 200000,
+        availability: 'available',
+      },
+      {
+        id: 'alex-50',
+        sizeMl: 50,
+        priceHalalas: 100000,
+        availability: 'low-stock',
+      },
     ],
     notes: { top: ['lemon'], heart: ['jasmine'], base: ['vanilla'] },
   },
@@ -53,8 +65,18 @@ export const PRODUCTS = {
     year: 2000,
     season: ['spring'],
     variants: [
-      { id: 'layt-100', sizeMl: 100, priceHalalas: 150000 },
-      { id: 'layt-50', sizeMl: 50, priceHalalas: 75000 },
+      {
+        id: 'layt-100',
+        sizeMl: 100,
+        priceHalalas: 150000,
+        availability: 'available',
+      },
+      {
+        id: 'layt-50',
+        sizeMl: 50,
+        priceHalalas: 75000,
+        availability: 'out-of-stock',
+      },
     ],
     notes: { top: ['lemon'], heart: ['jasmine'], base: ['vanilla'] },
   },

@@ -27,3 +27,6 @@ export type Audience = (typeof AUDIENCES)[number];
 
 export const SEASONS = ['winter', 'autumn', 'summer', 'spring'] as const;
 export type Season = (typeof SEASONS)[number];
+
+export const AVAILABILITY = ['available', 'low-stock', 'out-of-stock'] as const;
+export type Availability = (typeof AVAILABILITY)[number];

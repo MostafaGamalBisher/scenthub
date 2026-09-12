@@ -22,6 +22,7 @@ function ProductVariants({
             {messages[locale].units.ml}
           </p>
           <p>{formatPrice(variant.priceHalalas, locale)}</p>
+          <p>{messages[locale].availability[variant.availability]}</p>
         </li>
       ))}
     </ul>

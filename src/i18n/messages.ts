@@ -1,9 +1,10 @@
-import type { Season } from '@/catalog/taxonomy';
+import type { Availability, Season } from '@/catalog/taxonomy';
 import type { Locale } from '@/i18n/config';
 
 export type Messages = {
   seasons: Record<Season, string>;
   units: Record<'ml', string>;
+  availability: Record<Availability, string>;
 };
 
 export const messages = {
@@ -17,6 +18,11 @@ export const messages = {
     units: {
       ml: 'mL',
     },
+    availability: {
+      'available': 'Available',
+      'low-stock': 'Low Stock',
+      'out-of-stock': 'Out Of Stock',
+    },
   },
   ar: {
     seasons: {
@@ -27,6 +33,11 @@ export const messages = {
     },
     units: {
       ml: 'مل',
+    },
+    availability: {
+      'available': 'متوفر',
+      'low-stock': 'كمية قليلة',
+      'out-of-stock': 'نفدت الكمية',
     },
   },
 } as const satisfies Record<Locale, Messages>;
