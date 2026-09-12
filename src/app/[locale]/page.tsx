@@ -14,11 +14,11 @@ export default async function Home({ params }: HomeProps) {
     notFound();
   }
 
-  const products = getProducts();
+  const productsResponse = getProducts(1, 1);
 
   return (
     <div>
-      <ProductsList locale={locale} products={products} />
+      <ProductsList locale={locale} products={productsResponse.products} />
     </div>
   );
 }

@@ -83,3 +83,18 @@ export const PRODUCTS = {
 } as const satisfies Record<string, Product>;
 
 export type ProductId = keyof typeof PRODUCTS;
+
+export type ProductsResponse = {
+  products: readonly CatalogProduct[];
+  page: number;
+  limit: number;
+  total: number;
+};
+const limit = 10;
+
+const page = 2;
+
+const end = limit * page;
+const start = end - limit;
+
+console.log(start, end);
