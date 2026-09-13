@@ -3,6 +3,7 @@ import ProductSeasons from '@/app/[locale]/ProductSeasons';
 import ProductVariants from '@/app/[locale]/ProductVariants';
 import { formatNumber } from '@/lib/format-number';
 import type { CatalogProduct } from '@/catalog/products';
+import { messages } from '@/i18n/messages';
 
 interface ProductsListProps {
   locale: Locale;
@@ -10,6 +11,10 @@ interface ProductsListProps {
 }
 
 function ProductsList({ locale, products }: ProductsListProps) {
+  if (products.length === 0) {
+    return <p>{messages[locale].noProducts}</p>;
+  }
+
   return (
     <div>
       <p>products list</p>
