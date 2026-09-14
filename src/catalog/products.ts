@@ -90,11 +90,3 @@ export type ProductsResponse = {
   limit: number;
   total: number;
 };
-const limit = 10;
-
-const page = 2;
-
-const end = limit * page;
-const start = end - limit;
-
-console.log(start, end);
