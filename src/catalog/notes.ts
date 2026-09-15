@@ -1,15 +1,9 @@
-import type { Family, Localized } from '@/catalog/taxonomy';
+import type { Localized } from '@/catalog/taxonomy';
+import type { FamilyId } from '@/catalog/families';
 
 export type Note = {
   name: Localized<string>;
-  family: Family;
+  family: FamilyId;
 };
 
-export const NOTES = {
-  bergamot: { name: { en: 'Bergamot', ar: 'برغموت' }, family: 'citrus' },
-  lemon: { name: { en: 'Lemon', ar: 'ليمون' }, family: 'citrus' },
-  jasmine: { name: { en: 'Jasmine', ar: 'ياسمين' }, family: 'floral' },
-  vanilla: { name: { en: 'Vanilla', ar: 'فانيلا' }, family: 'gourmand' },
-} as const satisfies Record<string, Note>;
-
-export type NoteId = keyof typeof NOTES;
+export type NoteId = string;
