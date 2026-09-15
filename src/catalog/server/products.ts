@@ -1,4 +1,5 @@
-import { PRODUCTS, type ProductsResponse } from '@/catalog/products';
+import type { ProductsResponse } from '@/catalog/products';
+import { PRODUCTS } from '@/catalog/server/product-data';
 
 export function getProducts(
   page: number = 1,
