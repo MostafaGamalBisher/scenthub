@@ -5,20 +5,6 @@ export type Localized<T> = Record<Locale, T>;
 export const CONCENTRATIONS = ['edt', 'edp', 'parfum', 'cologne'] as const;
 export type Concentration = (typeof CONCENTRATIONS)[number];
 
-export const FAMILIES = [
-  'citrus',
-  'floral',
-  'woody',
-  'amber',
-  'spicy',
-  'gourmand',
-  'fruity',
-  'green',
-  'musk',
-  'leather',
-] as const;
-export type Family = (typeof FAMILIES)[number];
-
 export const POSITIONS = ['top', 'heart', 'base'] as const;
 export type Position = (typeof POSITIONS)[number];
 
