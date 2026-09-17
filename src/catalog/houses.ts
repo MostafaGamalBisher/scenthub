@@ -5,3 +5,7 @@ export type House = {
 };
 
 export type HouseId = string;
+
+export type CatalogHouse = {
+  id: HouseId;
+} & House;

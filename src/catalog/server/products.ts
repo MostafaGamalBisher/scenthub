@@ -1,5 +1,6 @@
 import type { ProductsResponse } from '@/catalog/products';
 import { PRODUCTS } from '@/catalog/server/product-data';
+import { HOUSES } from './house-data';
 
 export function getProducts(
   page: number = 1,
@@ -9,6 +10,7 @@ export function getProducts(
 
   const catalogProducts = productsEntries.map(([productId, product]) => ({
     ...product,
+    house: { id: product.house, name: HOUSES[product.house].name },
     id: productId,
   }));
 

@@ -1,4 +1,4 @@
-import type { Product } from '@/catalog/products';
+import type { ProductRecord } from '@/catalog/products';
 
 export const PRODUCTS = {
   'alexandria-ii': {
@@ -48,4 +48,4 @@ export const PRODUCTS = {
     ],
     notes: { top: ['lemon'], heart: ['jasmine'], base: ['vanilla'] },
   },
-} as const satisfies Record<string, Product>;
+} as const satisfies Record<string, ProductRecord>;

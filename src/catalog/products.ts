@@ -6,7 +6,7 @@ import type {
   Position,
   Season,
 } from '@/catalog/taxonomy';
-import type { HouseId } from '@/catalog/houses';
+import type { CatalogHouse, HouseId } from '@/catalog/houses';
 import type { NoteId } from '@/catalog/notes';
 
 export type Variant = {
@@ -19,7 +19,7 @@ export type Variant = {
 
 export type Notes = Record<Position, readonly NoteId[]>;
 
-export type Product = {
+export type ProductRecord = {
   name: Localized<string>;
   house: HouseId;
   concentration: Concentration;
@@ -32,7 +32,10 @@ export type Product = {
 
 export type ProductId = string;
 
-export type CatalogProduct = { id: ProductId } & Product;
+export type CatalogProduct = {
+  id: ProductId;
+  house: CatalogHouse;
+} & Omit<ProductRecord, 'house'>;
 
 export type ProductsResponse = {
   products: readonly CatalogProduct[];
