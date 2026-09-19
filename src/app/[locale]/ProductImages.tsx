@@ -21,14 +21,14 @@ function ProductImages({ primaryImageId, images, locale }: ProductImagesProps) {
 
   const primaryImage = images.find((image) => image.id === primaryImageId);
 
-  if (primaryImage && !imageFailed) {
+  if (primaryImage && imageFailed === false) {
     return (
       <Image
         src={primaryImage.src}
         alt={primaryImage.alt[locale]}
         width={600}
         height={400}
-        onError={() => onErrorHandler}
+        onError={onErrorHandler}
       />
     );
   } else {
