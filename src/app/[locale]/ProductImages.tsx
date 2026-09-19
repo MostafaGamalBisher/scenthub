@@ -13,7 +13,14 @@ function ProductImages({ primaryImageId, images, locale }: ProductImagesProps) {
   const primaryImage = images.find((image) => image.id === primaryImageId);
 
   if (primaryImage) {
-    return <Image src={primaryImage.src} alt={primaryImage.alt[locale]} />;
+    return (
+      <Image
+        src={primaryImage.src}
+        alt={primaryImage.alt[locale]}
+        width={600}
+        height={400}
+      />
+    );
   } else if (primaryImage === undefined) {
     return (
       <Image
