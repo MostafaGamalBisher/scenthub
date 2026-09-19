@@ -22,12 +22,7 @@ function ProductImages({ primaryImageId, images, locale }: ProductImagesProps) {
       />
     );
   } else if (primaryImage === undefined) {
-    return (
-      <Image
-        src={`https://placehold.co/600x400?text=${messages[locale].noImage}`}
-        alt={messages[locale].noImage}
-      />
-    );
+    return <p>{messages[locale].noImage}</p>;
   }
 }
 export default ProductImages;

@@ -22,7 +22,14 @@ function ProductsList({ locale, products }: ProductsListProps) {
       <ul>
         {products.map((product) => (
           <li key={product.id}>
+            <ProductImages
+              images={product.images}
+              primaryImageId={product.primaryImageId}
+              locale={locale}
+            />
+
             <h3>{product.name[locale]}</h3>
+
             {product.year !== undefined ? (
               <span>{formatNumber(product.year, locale, false)}</span>
             ) : null}
@@ -34,11 +41,7 @@ function ProductsList({ locale, products }: ProductsListProps) {
               locale={locale}
               productVariantsArray={product.variants}
             />
-            <ProductImages
-              images={product.images}
-              primaryImageId={product.primaryImageId}
-              locale={locale}
-            />
+            <p>{product.house.name[locale]}</p>
           </li>
         ))}
       </ul>
