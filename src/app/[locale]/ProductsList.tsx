@@ -4,6 +4,7 @@ import ProductVariants from '@/app/[locale]/ProductVariants';
 import { formatNumber } from '@/lib/format-number';
 import type { CatalogProduct } from '@/catalog/products';
 import { messages } from '@/i18n/messages';
+import ProductImages from '@/app/[locale]/ProductImages';
 
 interface ProductsListProps {
   locale: Locale;
@@ -32,6 +33,11 @@ function ProductsList({ locale, products }: ProductsListProps) {
             <ProductVariants
               locale={locale}
               productVariantsArray={product.variants}
+            />
+            <ProductImages
+              images={product.images}
+              primaryImageId={product.primaryImageId}
+              locale={locale}
             />
           </li>
         ))}

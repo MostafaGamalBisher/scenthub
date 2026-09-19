@@ -9,12 +9,19 @@ import type {
 import type { CatalogHouse, HouseId } from '@/catalog/houses';
 import type { NoteId } from '@/catalog/notes';
 
+export type ProductImage = {
+  id: string;
+  src: string;
+  alt: Localized<string>;
+};
+
 export type Variant = {
   id: string;
   sizeMl: number;
   /** VAT-inclusive selling price in integer halalas. */
   priceHalalas: number;
   availability: Availability;
+  imageId?: string;
 };
 
 export type Notes = Record<Position, readonly NoteId[]>;
@@ -26,6 +33,8 @@ export type ProductRecord = {
   audience: Audience;
   year?: number;
   season: readonly Season[];
+  images: readonly ProductImage[];
+  primaryImageId: string;
   variants: readonly Variant[];
   notes: Notes;
 };

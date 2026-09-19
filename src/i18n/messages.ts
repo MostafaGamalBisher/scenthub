@@ -6,6 +6,7 @@ export type Messages = {
   units: Record<'ml', string>;
   availability: Record<Availability, string>;
   noProducts: string;
+  noImage: string;
 };
 
 export const messages = {
@@ -25,6 +26,7 @@ export const messages = {
       'out-of-stock': 'Out Of Stock',
     },
     noProducts: 'No products to display',
+    noImage: 'Image unavailable',
   },
   ar: {
     seasons: {
@@ -42,5 +44,6 @@ export const messages = {
       'out-of-stock': 'نفدت الكمية',
     },
     noProducts: 'لا توجد منتجات لعرضها',
+    noImage: 'الصورة غير متوفرة',
   },
 } as const satisfies Record<Locale, Messages>;

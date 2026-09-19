@@ -8,12 +8,26 @@ export const PRODUCTS = {
     audience: 'men',
     year: 2000,
     season: ['winter'],
+    images: [
+      {
+        id: 'alex-1',
+        src: 'https://placehold.co/600x400/png?text=alex-1',
+        alt: { en: 'Placeholder 2 image', ar: 'صور مؤقتة عطر اليكسندريا 2' },
+      },
+      {
+        id: 'alex-2',
+        src: 'https://placehold.co/600x400/png?text=alex-2',
+        alt: { en: 'Placeholder 2 image', ar: 'صور مؤقتة عطر اليكسندريا 2' },
+      },
+    ],
+    primaryImageId: 'alex-1',
     variants: [
       {
         id: 'alex-100',
         sizeMl: 100,
         priceHalalas: 200000,
         availability: 'available',
+        imageId: 'alex-1',
       },
       {
         id: 'alex-50',
@@ -32,6 +46,19 @@ export const PRODUCTS = {
     audience: 'men',
     year: 2000,
     season: ['spring'],
+    images: [
+      {
+        id: 'lyton-1',
+        src: 'https://placehold.co/600x400/png?text=lyton-1',
+        alt: { en: 'Placeholder 2 image', ar: 'صورة مؤقتة عطر ليتون' },
+      },
+      {
+        id: 'lyton-2',
+        src: 'https://placehold.co/600x400/png?text=lyton-2',
+        alt: { en: 'Placeholder 2 image', ar: 'صورة مؤقتة عطر ليتون' },
+      },
+    ],
+    primaryImageId: 'lyton-1',
     variants: [
       {
         id: 'layt-100',
