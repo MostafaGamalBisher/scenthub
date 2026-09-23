@@ -12,7 +12,7 @@ interface ProductImagesProps {
   locale: Locale;
 }
 
-function ProductImages({ imageId, images, locale }: ProductImagesProps) {
+function ProductImageDisplay({ imageId, images, locale }: ProductImagesProps) {
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
 
   const selectedImage = images.find((img) => img.id === imageId);
@@ -37,4 +37,4 @@ function ProductImages({ imageId, images, locale }: ProductImagesProps) {
     return <p>{messages[locale].noImage}</p>;
   }
 }
-export default ProductImages;
+export default ProductImageDisplay;

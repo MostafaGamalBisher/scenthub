@@ -4,7 +4,7 @@ import ProductVariants from '@/app/[locale]/ProductVariants';
 import { formatNumber } from '@/lib/format-number';
 import type { CatalogProduct } from '@/catalog/products';
 import { messages } from '@/i18n/messages';
-import ProductImages from '@/app/[locale]/ProductImages';
+import ProductImageDisplay from '@/app/[locale]/ProductImageDisplay';
 
 interface ProductsListProps {
   locale: Locale;
@@ -22,7 +22,7 @@ function ProductsList({ locale, products }: ProductsListProps) {
       <ul>
         {products.map((product) => (
           <li key={product.id}>
-            <ProductImages
+            <ProductImageDisplay
               images={product.images}
               imageId={product.primaryImageId}
               locale={locale}
