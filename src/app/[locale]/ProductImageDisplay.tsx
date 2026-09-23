@@ -6,13 +6,17 @@ import { messages } from '@/i18n/messages';
 import Image from 'next/image';
 import { useState } from 'react';
 
-interface ProductImagesProps {
+interface ProductImageDisplayProps {
   imageId: string;
   images: readonly ProductImage[];
   locale: Locale;
 }
 
-function ProductImageDisplay({ imageId, images, locale }: ProductImagesProps) {
+function ProductImageDisplay({
+  imageId,
+  images,
+  locale,
+}: ProductImageDisplayProps) {
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
 
   const selectedImage = images.find((img) => img.id === imageId);
