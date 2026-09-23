@@ -24,7 +24,7 @@ function ProductsList({ locale, products }: ProductsListProps) {
           <li key={product.id}>
             <ProductImages
               images={product.images}
-              primaryImageId={product.primaryImageId}
+              imageId={product.primaryImageId}
               locale={locale}
             />
 

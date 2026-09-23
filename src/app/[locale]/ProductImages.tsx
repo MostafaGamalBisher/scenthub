@@ -7,25 +7,27 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 interface ProductImagesProps {
-  primaryImageId: string;
+  imageId: string;
   images: readonly ProductImage[];
   locale: Locale;
 }
 
-function ProductImages({ primaryImageId, images, locale }: ProductImagesProps) {
-  const [imageFailed, setImageFailed] = useState(false);
+function ProductImages({ imageId, images, locale }: ProductImagesProps) {
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+
+  const selectedImage = images.find((img) => img.id === imageId);
 
   const onErrorHandler = () => {
-    setImageFailed(true);
+    if (selectedImage) {
+      setFailedSrc(selectedImage.src);
+    }
   };
 
-  const primaryImage = images.find((image) => image.id === primaryImageId);
-
-  if (primaryImage && imageFailed === false) {
+  if (selectedImage && selectedImage.src !== failedSrc) {
     return (
       <Image
-        src={primaryImage.src}
-        alt={primaryImage.alt[locale]}
+        src={selectedImage.src}
+        alt={selectedImage.alt[locale]}
         width={600}
         height={400}
         onError={onErrorHandler}
