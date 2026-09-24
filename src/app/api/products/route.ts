@@ -30,10 +30,24 @@ export function GET(request: Request) {
     rawLimitValue = limit;
   }
 
-  const validPageNumber = parsePositiveInteger(rawPageValue);
-  const validLimitNumber = parsePositiveInteger(rawLimitValue);
+  const pageNumberResult = parsePositiveInteger(rawPageValue);
+  const limitNumberResult = parsePositiveInteger(rawLimitValue);
 
-  const products = getProducts(validPageNumber, validLimitNumber);
+  if (pageNumberResult.ok === false) {
+    return Response.json(
+      { ok: false, error: pageNumberResult.error, parameter: 'page' },
+      { status: 400 }
+    );
+  }
+
+  if (limitNumberResult.ok === false) {
+    return Response.json(
+      { ok: false, error: limitNumberResult.error, parameter: 'limit' },
+      { status: 400 }
+    );
+  }
+
+  const products = getProducts(pageNumberResult.value, limitNumberResult.value);
 
   return Response.json(products);
 }

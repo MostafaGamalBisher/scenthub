@@ -16,6 +16,8 @@ function ProductsList({ locale, products }: ProductsListProps) {
     return <p>{messages[locale].noProducts}</p>;
   }
 
+  const alex = products.find((product) => product.id === 'alexandria-ii');
+
   return (
     <div>
       <p>products list</p>

@@ -22,11 +22,18 @@ export default async function Home({ params, searchParams }: HomeProps) {
     notFound();
   }
 
-  const parsedPageValue = parsePositiveInteger(page);
+  const pageResult = parsePositiveInteger(page);
+  const limitResult = parsePositiveInteger(limit);
 
-  const parsedLimitValue = parsePositiveInteger(limit);
+  if (pageResult.ok === false) {
+    return <p>{pageResult.error}</p>; //it's a placeHolder for now i am just trying to understand the logic
+  }
 
-  const productsResponse = getProducts(parsedPageValue, parsedLimitValue);
+  if (limitResult.ok === false) {
+    return <p>{limitResult.error}</p>; //it's a placeHolder for now i am just trying to understand the logic
+  }
+
+  const productsResponse = getProducts(pageResult.value, limitResult.value);
 
   return (
     <div>
