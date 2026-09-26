@@ -18,6 +18,12 @@ export function parsePositiveInteger(
     return { ok: false, error: 'Value must not be empty.' };
   }
 
+  const digitsOnly = /^[0-9]+$/;
+
+  if (!digitsOnly.test(value)) {
+    return { ok: false, error: 'Value must contain only digits 0–9.' };
+  }
+
   const convertedValue = Number(value);
 
   if (convertedValue <= 0 || !Number.isInteger(convertedValue)) {
