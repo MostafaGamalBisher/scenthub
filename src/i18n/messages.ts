@@ -7,6 +7,10 @@ export type Messages = {
   availability: Record<Availability, string>;
   noProducts: string;
   noImage: string;
+  paginationError: {
+    message: string;
+    recoveryLabel: string;
+  };
 };
 
 export const messages = {
@@ -27,6 +31,10 @@ export const messages = {
     },
     noProducts: 'No products to display',
     noImage: 'Image unavailable',
+    paginationError: {
+      message: 'This link contains invalid pagination settings',
+      recoveryLabel: 'Return to catalog',
+    },
   },
   ar: {
     seasons: {
@@ -45,5 +53,9 @@ export const messages = {
     },
     noProducts: 'لا توجد منتجات لعرضها',
     noImage: 'الصورة غير متوفرة',
+    paginationError: {
+      message: 'يحتوي هذا الرابط على إعدادات غير صالحة لعرض صفحات المنتجات',
+      recoveryLabel: 'العودة إلى المنتجات',
+    },
   },
 } as const satisfies Record<Locale, Messages>;
