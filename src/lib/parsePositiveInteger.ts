@@ -26,8 +26,8 @@ export function parsePositiveInteger(
 
   const convertedValue = Number(value);
 
-  if (convertedValue <= 0 || !Number.isInteger(convertedValue)) {
-    return { ok: false, error: 'Value must be a positive integer.' };
+  if (convertedValue <= 0 || !Number.isSafeInteger(convertedValue)) {
+    return { ok: false, error: 'Value must be a positive safe integer.' };
   }
 
   return { ok: true, value: convertedValue };
