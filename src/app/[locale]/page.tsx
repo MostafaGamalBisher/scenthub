@@ -8,7 +8,6 @@ import { messages } from '@/i18n/messages';
 
 interface PaginationSearchParams {
   page?: string | string[];
-  limit?: string | string[];
 }
 
 interface HomeProps {
@@ -18,7 +17,7 @@ interface HomeProps {
 
 export default async function Home({ params, searchParams }: HomeProps) {
   const { locale } = await params;
-  const { page, limit } = await searchParams;
+  const { page } = await searchParams;
 
   if (!isLocale(locale)) {
     notFound();
@@ -27,19 +26,6 @@ export default async function Home({ params, searchParams }: HomeProps) {
   const pageResult = parsePositiveInteger(page);
 
   if (pageResult.ok === false) {
-    return (
-      <div>
-        <p>{messages[locale].paginationError.message}</p>
-        <Link href={`/${locale}`}>
-          {messages[locale].paginationError.recoveryLabel}
-        </Link>
-      </div>
-    );
-  }
-
-  const limitResult = parsePositiveInteger(limit);
-
-  if (limitResult.ok === false) {
     return (
       <div>
         <p>{messages[locale].paginationError.message}</p>
