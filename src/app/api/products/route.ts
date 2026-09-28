@@ -47,7 +47,7 @@ export function GET(request: Request) {
     );
   }
 
-  const products = getProducts(pageNumberResult.value, limitNumberResult.value);
+  const products = getProducts(pageNumberResult.value);
 
   return Response.json(products);
 }

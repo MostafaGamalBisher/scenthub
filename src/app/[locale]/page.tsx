@@ -50,7 +50,7 @@ export default async function Home({ params, searchParams }: HomeProps) {
     );
   }
 
-  const productsResponse = getProducts(pageResult.value, limitResult.value);
+  const productsResponse = getProducts(pageResult.value);
 
   return (
     <div>

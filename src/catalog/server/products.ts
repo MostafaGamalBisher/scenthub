@@ -2,10 +2,8 @@ import type { ProductsResponse } from '@/catalog/products';
 import { PRODUCTS } from '@/catalog/server/product-data';
 import { HOUSES } from './house-data';
 
-export function getProducts(
-  page: number = 1,
-  limit: number = 12
-): ProductsResponse {
+export function getProducts(page: number = 1): ProductsResponse {
+  const limit = 12;
   const productsEntries = Object.entries(PRODUCTS);
 
   const catalogProducts = productsEntries.map(([productId, product]) => ({
