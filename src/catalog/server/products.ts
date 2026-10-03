@@ -17,7 +17,7 @@ export function getProducts(
     matchingProductsEntries = productsEntries;
   } else {
     matchingProductsEntries = productsEntries.filter(
-      ([key, value]) => value.house === house
+      ([, value]) => value.house === house
     );
   }
 
