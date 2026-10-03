@@ -7,22 +7,33 @@ const PRODUCTS_PAGE_SIZE = 12;
 export function getProducts(page: number = 1): ProductsResponse {
   const productsEntries = Object.entries(PRODUCTS);
 
-  const catalogProducts = productsEntries.map(([productId, product]) => ({
+  const totalPages = Math.ceil(productsEntries.length / PRODUCTS_PAGE_SIZE);
+
+  if (page > totalPages) {
+    return {
+      products: [],
+      page: page,
+      limit: PRODUCTS_PAGE_SIZE,
+      total: productsEntries.length,
+    };
+  }
+
+  const end = page * PRODUCTS_PAGE_SIZE;
+  const start = end - PRODUCTS_PAGE_SIZE;
+
+  const slicedCatalogProducts = productsEntries.slice(start, end);
+
+  const catalogProducts = slicedCatalogProducts.map(([productId, product]) => ({
     ...product,
     house: { id: product.house, name: HOUSES[product.house].name },
     id: productId,
   }));
 
-  const end = page * PRODUCTS_PAGE_SIZE;
-  const start = end - PRODUCTS_PAGE_SIZE;
-
-  const slicedCatalogProducts = catalogProducts.slice(start, end);
-
   const productsResponse = {
-    products: slicedCatalogProducts,
+    products: catalogProducts,
     page: page,
     limit: PRODUCTS_PAGE_SIZE,
-    total: catalogProducts.length,
+    total: productsEntries.length,
   };
   return productsResponse;
 }
