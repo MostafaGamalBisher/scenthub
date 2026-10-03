@@ -1,13 +1,26 @@
 import type { ProductsResponse } from '@/catalog/products';
 import { PRODUCTS } from '@/catalog/server/product-data';
 import { HOUSES } from './house-data';
+import type { HouseId } from '@/catalog/houses';
 
 const PRODUCTS_PAGE_SIZE = 12;
 
-export function getProducts(page: number = 1): ProductsResponse {
+export function getProducts(
+  page: number = 1,
+  house?: HouseId
+): ProductsResponse {
   const productsEntries = Object.entries(PRODUCTS);
 
-  const totalPages = Math.ceil(productsEntries.length / PRODUCTS_PAGE_SIZE);
+  let totalPages;
+
+  if (house) {
+    const filteredProductsEntires = productsEntries.filter(
+      ([key, value]) => value.house === house
+    );
+    totalPages = Math.ceil(filteredProductsEntires.length / PRODUCTS_PAGE_SIZE);
+  }
+
+  totalPages = Math.ceil(productsEntries.length / PRODUCTS_PAGE_SIZE);
 
   if (page > totalPages) {
     return {
@@ -21,9 +34,9 @@ export function getProducts(page: number = 1): ProductsResponse {
   const end = page * PRODUCTS_PAGE_SIZE;
   const start = end - PRODUCTS_PAGE_SIZE;
 
-  const slicedCatalogProducts = productsEntries.slice(start, end);
+  const pagedProductEntries = productsEntries.slice(start, end);
 
-  const catalogProducts = slicedCatalogProducts.map(([productId, product]) => ({
+  const catalogProducts = pagedProductEntries.map(([productId, product]) => ({
     ...product,
     house: { id: product.house, name: HOUSES[product.house].name },
     id: productId,
