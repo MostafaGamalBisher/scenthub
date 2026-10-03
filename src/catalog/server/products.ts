@@ -11,30 +11,33 @@ export function getProducts(
 ): ProductsResponse {
   const productsEntries = Object.entries(PRODUCTS);
 
-  let totalPages;
+  let matchingProductsEntries;
 
-  if (house) {
-    const filteredProductsEntires = productsEntries.filter(
+  if (house === undefined) {
+    matchingProductsEntries = productsEntries;
+  } else {
+    matchingProductsEntries = productsEntries.filter(
       ([key, value]) => value.house === house
     );
-    totalPages = Math.ceil(filteredProductsEntires.length / PRODUCTS_PAGE_SIZE);
   }
 
-  totalPages = Math.ceil(productsEntries.length / PRODUCTS_PAGE_SIZE);
+  const totalPages = Math.ceil(
+    matchingProductsEntries.length / PRODUCTS_PAGE_SIZE
+  );
 
   if (page > totalPages) {
     return {
       products: [],
       page: page,
       limit: PRODUCTS_PAGE_SIZE,
-      total: productsEntries.length,
+      total: matchingProductsEntries.length,
     };
   }
 
   const end = page * PRODUCTS_PAGE_SIZE;
   const start = end - PRODUCTS_PAGE_SIZE;
 
-  const pagedProductEntries = productsEntries.slice(start, end);
+  const pagedProductEntries = matchingProductsEntries.slice(start, end);
 
   const catalogProducts = pagedProductEntries.map(([productId, product]) => ({
     ...product,
@@ -46,7 +49,7 @@ export function getProducts(
     products: catalogProducts,
     page: page,
     limit: PRODUCTS_PAGE_SIZE,
-    total: productsEntries.length,
+    total: matchingProductsEntries.length,
   };
   return productsResponse;
 }
