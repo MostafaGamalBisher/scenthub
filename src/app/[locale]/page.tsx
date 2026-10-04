@@ -39,9 +39,9 @@ export default async function Home({ params, searchParams }: HomeProps) {
   if (houseIds.some((houseId) => houseId.trim() === '')) {
     return (
       <div>
-        <p>{messages[locale].paginationError.message}</p>
+        <p>{messages[locale].blankHouseError.message}</p>
         <Link href={`/${locale}`}>
-          {messages[locale].paginationError.recoveryLabel}
+          {messages[locale].blankHouseError.recoveryLabel}
         </Link>
       </div>
     );
