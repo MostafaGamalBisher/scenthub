@@ -8,6 +8,7 @@ import { messages } from '@/i18n/messages';
 
 interface PaginationSearchParams {
   page?: string | string[];
+  house?: string | string[];
 }
 
 interface HomeProps {
@@ -17,13 +18,34 @@ interface HomeProps {
 
 export default async function Home({ params, searchParams }: HomeProps) {
   const { locale } = await params;
-  const { page } = await searchParams;
+  const { page, house } = await searchParams;
 
   if (!isLocale(locale)) {
     notFound();
   }
 
   const pageResult = parsePositiveInteger(page);
+
+  let houseIds: string[];
+
+  if (house === undefined) {
+    houseIds = [];
+  } else if (typeof house === 'string') {
+    houseIds = [house];
+  } else {
+    houseIds = house;
+  }
+
+  if (houseIds.some((houseId) => houseId.trim() === '')) {
+    return (
+      <div>
+        <p>{messages[locale].paginationError.message}</p>
+        <Link href={`/${locale}`}>
+          {messages[locale].paginationError.recoveryLabel}
+        </Link>
+      </div>
+    );
+  }
 
   if (pageResult.ok === false) {
     return (
@@ -36,7 +58,7 @@ export default async function Home({ params, searchParams }: HomeProps) {
     );
   }
 
-  const productsResponse = getProducts(pageResult.value);
+  const productsResponse = getProducts(pageResult.value, houseIds);
 
   return (
     <div>

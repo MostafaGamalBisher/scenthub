@@ -11,6 +11,10 @@ export type Messages = {
     message: string;
     recoveryLabel: string;
   };
+  blankHouseError: {
+    message: string;
+    recoveryLabel: string;
+  };
 };
 
 export const messages = {
@@ -35,6 +39,10 @@ export const messages = {
       message: 'This link contains invalid pagination settings',
       recoveryLabel: 'Return to catalog',
     },
+    blankHouseError: {
+      message: 'This link contains invalid catalog settings',
+      recoveryLabel: 'Return to catalog',
+    },
   },
   ar: {
     seasons: {
@@ -54,6 +62,10 @@ export const messages = {
     noProducts: 'لا توجد منتجات لعرضها',
     noImage: 'الصورة غير متوفرة',
     paginationError: {
+      message: 'يحتوي هذا الرابط على إعدادات غير صالحة لعرض صفحات المنتجات',
+      recoveryLabel: 'العودة إلى المنتجات',
+    },
+    blankHouseError: {
       message: 'يحتوي هذا الرابط على إعدادات غير صالحة لعرض صفحات المنتجات',
       recoveryLabel: 'العودة إلى المنتجات',
     },

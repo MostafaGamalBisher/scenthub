@@ -7,17 +7,17 @@ const PRODUCTS_PAGE_SIZE = 12;
 
 export function getProducts(
   page: number = 1,
-  house?: HouseId
+  houseIds: readonly HouseId[] = []
 ): ProductsResponse {
   const productsEntries = Object.entries(PRODUCTS);
 
   let matchingProductsEntries;
 
-  if (house === undefined) {
+  if (houseIds.length === 0) {
     matchingProductsEntries = productsEntries;
   } else {
-    matchingProductsEntries = productsEntries.filter(
-      ([, value]) => value.house === house
+    matchingProductsEntries = productsEntries.filter(([, value]) =>
+      houseIds.includes(value.house)
     );
   }
 
