@@ -5,7 +5,7 @@ import { getProducts } from '@/catalog/server/products';
 import { parsePositiveInteger } from '@/lib/parsePositiveInteger';
 import Link from 'next/link';
 import { messages } from '@/i18n/messages';
-import { validateHouseId } from '@/lib/validateHouseId';
+import { validateHouseIds } from '@/lib/validateHouseIds';
 
 interface PaginationSearchParams {
   page?: string | string[];
@@ -48,7 +48,9 @@ export default async function Home({ params, searchParams }: HomeProps) {
     );
   }
 
-  if (validateHouseId(houseIds).ok === false) {
+  const validatedHouseIds = validateHouseIds(houseIds);
+
+  if (validatedHouseIds.ok === false) {
     return (
       <div>
         <p>{messages[locale].blankHouseError.message}</p>
@@ -59,7 +61,10 @@ export default async function Home({ params, searchParams }: HomeProps) {
     );
   }
 
-  const productsResponse = getProducts(pageResult.value, houseIds);
+  const productsResponse = getProducts(
+    pageResult.value,
+    validatedHouseIds.value
+  );
 
   return (
     <div>

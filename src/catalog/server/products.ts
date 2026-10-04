@@ -1,25 +1,39 @@
 import type { ProductsResponse } from '@/catalog/products';
 import { PRODUCTS } from '@/catalog/server/product-data';
-import { HOUSES } from './house-data';
+import { HOUSES } from '@/catalog/server/house-data';
 import type { HouseId } from '@/catalog/houses';
+import type { Season } from '@/catalog/taxonomy';
 
 const PRODUCTS_PAGE_SIZE = 12;
 
 export function getProducts(
   page: number = 1,
-  houseIds: readonly HouseId[] = []
+  houseIds: readonly HouseId[] = [],
+  selectedSeasons: readonly Season[] = []
 ): ProductsResponse {
   const productsEntries = Object.entries(PRODUCTS);
 
-  let matchingProductsEntries;
+  let housedProductsEntries;
 
   if (houseIds.length === 0) {
-    matchingProductsEntries = productsEntries;
+    housedProductsEntries = productsEntries;
   } else {
-    matchingProductsEntries = productsEntries.filter(([, value]) =>
+    housedProductsEntries = productsEntries.filter(([, value]) =>
       houseIds.includes(value.house)
     );
   }
+
+  let seasonedProductsEntries;
+
+  if (selectedSeasons.length === 0) {
+    seasonedProductsEntries = housedProductsEntries;
+  } else {
+    seasonedProductsEntries = housedProductsEntries.filter(([, value]) =>
+      selectedSeasons.some((season) => value.season.includes(season))
+    );
+  }
+
+  const matchingProductsEntries = seasonedProductsEntries;
 
   const totalPages = Math.ceil(
     matchingProductsEntries.length / PRODUCTS_PAGE_SIZE

@@ -1,6 +1,6 @@
 import { getProducts } from '@/catalog/server/products';
 import { parsePositiveInteger } from '@/lib/parsePositiveInteger';
-import { validateHouseId } from '@/lib/validateHouseId';
+import { validateHouseIds } from '@/lib/validateHouseIds';
 
 export function GET(request: Request) {
   const url = new URL(request.url);
@@ -29,7 +29,7 @@ export function GET(request: Request) {
     );
   }
 
-  const houseIdResult = validateHouseId(house);
+  const houseIdResult = validateHouseIds(house);
 
   if (houseIdResult.ok === false) {
     return Response.json(
