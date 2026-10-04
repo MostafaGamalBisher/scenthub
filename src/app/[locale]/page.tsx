@@ -5,6 +5,7 @@ import { getProducts } from '@/catalog/server/products';
 import { parsePositiveInteger } from '@/lib/parsePositiveInteger';
 import Link from 'next/link';
 import { messages } from '@/i18n/messages';
+import { validateHouseId } from '@/lib/validateHouseId';
 
 interface PaginationSearchParams {
   page?: string | string[];
@@ -36,23 +37,23 @@ export default async function Home({ params, searchParams }: HomeProps) {
     houseIds = house;
   }
 
-  if (houseIds.some((houseId) => houseId.trim() === '')) {
-    return (
-      <div>
-        <p>{messages[locale].blankHouseError.message}</p>
-        <Link href={`/${locale}`}>
-          {messages[locale].blankHouseError.recoveryLabel}
-        </Link>
-      </div>
-    );
-  }
-
   if (pageResult.ok === false) {
     return (
       <div>
         <p>{messages[locale].paginationError.message}</p>
         <Link href={`/${locale}`}>
           {messages[locale].paginationError.recoveryLabel}
+        </Link>
+      </div>
+    );
+  }
+
+  if (validateHouseId(houseIds).ok === false) {
+    return (
+      <div>
+        <p>{messages[locale].blankHouseError.message}</p>
+        <Link href={`/${locale}`}>
+          {messages[locale].blankHouseError.recoveryLabel}
         </Link>
       </div>
     );

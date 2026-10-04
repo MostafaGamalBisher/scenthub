@@ -1,10 +1,12 @@
 import { getProducts } from '@/catalog/server/products';
 import { parsePositiveInteger } from '@/lib/parsePositiveInteger';
+import { validateHouseId } from '@/lib/validateHouseId';
 
 export function GET(request: Request) {
   const url = new URL(request.url);
 
   const page = url.searchParams.getAll('page');
+  const house = url.searchParams.getAll('house');
 
   const pageArrayLength = page.length;
 
@@ -27,7 +29,16 @@ export function GET(request: Request) {
     );
   }
 
-  const products = getProducts(pageNumberResult.value);
+  const houseIdResult = validateHouseId(house);
+
+  if (houseIdResult.ok === false) {
+    return Response.json(
+      { ok: false, error: houseIdResult.error, parameter: 'house' },
+      { status: 400 }
+    );
+  }
+
+  const products = getProducts(pageNumberResult.value, houseIdResult.value);
 
   return Response.json(products);
 }

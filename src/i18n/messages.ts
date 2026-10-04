@@ -66,7 +66,7 @@ export const messages = {
       recoveryLabel: 'العودة إلى المنتجات',
     },
     blankHouseError: {
-      message: 'يحتوي هذا الرابط على إعدادات غير صالحة لعرض صفحات المنتجات',
+      message: ' يحتوي هذا الرابط على إعدادات غير صالحة لعرض المنتجات',
       recoveryLabel: 'العودة إلى المنتجات',
     },
   },
