@@ -1,6 +1,6 @@
 import type { ProductRecord } from '@/catalog/products';
 
-export const PRODUCTS = {
+export const PRODUCTS: Readonly<Record<string, ProductRecord>> = {
   'alexandria-ii': {
     name: { en: 'Alexandria II', ar: 'أليكساندريا 2' },
     house: 'xerjoff',
@@ -75,4 +75,4 @@ export const PRODUCTS = {
     ],
     notes: { top: ['lemon'], heart: ['jasmine'], base: ['vanilla'] },
   },
-} as const satisfies Record<string, ProductRecord>;
+};

@@ -1,4 +1,4 @@
-import type { ProductRecord, ProductsResponse } from '@/catalog/products';
+import type { ProductsResponse } from '@/catalog/products';
 import { PRODUCTS } from '@/catalog/server/product-data';
 import { HOUSES } from '@/catalog/server/house-data';
 import type { HouseId } from '@/catalog/houses';
@@ -11,9 +11,7 @@ export function getProducts(
   houseIds: readonly HouseId[] = [],
   selectedSeasons: readonly Season[] = []
 ): ProductsResponse {
-  const productRecords: Record<string, ProductRecord> = PRODUCTS;
-
-  const productsEntries = Object.entries(productRecords);
+  const productsEntries = Object.entries(PRODUCTS);
 
   let housedProductsEntries;
 
@@ -55,11 +53,21 @@ export function getProducts(
 
   const pagedProductEntries = matchingProductsEntries.slice(start, end);
 
-  const catalogProducts = pagedProductEntries.map(([productId, product]) => ({
-    ...product,
-    house: { id: product.house, name: HOUSES[product.house].name },
-    id: productId,
-  }));
+  const catalogProducts = pagedProductEntries.map(([productId, product]) => {
+    const houseName = HOUSES[product.house];
+
+    if (houseName === undefined) {
+      throw new Error(
+        `product ${productId} references is messing ${product.name} `
+      );
+    }
+
+    return {
+      ...product,
+      house: { id: product.house, name: houseName.name },
+      id: productId,
+    };
+  });
 
   const productsResponse = {
     products: catalogProducts,

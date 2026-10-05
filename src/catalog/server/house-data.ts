@@ -1,6 +1,6 @@
 import type { House } from '@/catalog/houses';
 
-export const HOUSES = {
+export const HOUSES: Readonly<Record<string, House>> = {
   'xerjoff': { name: { en: 'Xerjoff', ar: 'زيرجوف' } },
   'chanel': { name: { en: 'Chanel', ar: 'شانيل' } },
   'dior': { name: { en: 'Dior', ar: 'ديور' } },
@@ -8,4 +8,4 @@ export const HOUSES = {
   'parfums-de-marly': {
     name: { en: 'Parfums De Marly', ar: 'بارفام دي مارلي' },
   },
-} as const satisfies Record<string, House>;
+};
