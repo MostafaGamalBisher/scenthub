@@ -54,17 +54,17 @@ export function getProducts(
   const pagedProductEntries = matchingProductsEntries.slice(start, end);
 
   const catalogProducts = pagedProductEntries.map(([productId, product]) => {
-    const houseName = HOUSES[product.house];
+    const houseRecord = HOUSES[product.house];
 
-    if (houseName === undefined) {
+    if (houseRecord === undefined) {
       throw new Error(
-        `product ${productId} references is messing ${product.name} `
+        `product ${productId} references is messing ${product.house} `
       );
     }
 
     return {
       ...product,
-      house: { id: product.house, name: houseName.name },
+      house: { id: product.house, name: houseRecord.name },
       id: productId,
     };
   });
