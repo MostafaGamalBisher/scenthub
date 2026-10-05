@@ -1,12 +1,14 @@
 import { getProducts } from '@/catalog/server/products';
 import { parsePositiveInteger } from '@/lib/parsePositiveInteger';
 import { validateHouseIds } from '@/lib/validateHouseIds';
+import { validateSeasons } from '@/lib/validateSeasons';
 
 export function GET(request: Request) {
   const url = new URL(request.url);
 
   const page = url.searchParams.getAll('page');
   const house = url.searchParams.getAll('house');
+  const season = url.searchParams.getAll('season');
 
   const pageArrayLength = page.length;
 
@@ -38,7 +40,20 @@ export function GET(request: Request) {
     );
   }
 
-  const products = getProducts(pageNumberResult.value, houseIdResult.value);
+  const seasonResult = validateSeasons(season);
+
+  if (seasonResult.ok === false) {
+    return Response.json(
+      { ok: false, error: seasonResult.error, parameter: 'season' },
+      { status: 400 }
+    );
+  }
+
+  const products = getProducts(
+    pageNumberResult.value,
+    houseIdResult.value,
+    seasonResult.value
+  );
 
   return Response.json(products);
 }

@@ -6,6 +6,7 @@ import { parsePositiveInteger } from '@/lib/parsePositiveInteger';
 import Link from 'next/link';
 import { messages } from '@/i18n/messages';
 import { validateHouseIds } from '@/lib/validateHouseIds';
+import { validateSeasons } from '@/lib/validateSeasons';
 
 interface PaginationSearchParams {
   page?: string | string[];

@@ -16,3 +16,10 @@ export type Season = (typeof SEASONS)[number];
 
 export const AVAILABILITY = ['available', 'low-stock', 'out-of-stock'] as const;
 export type Availability = (typeof AVAILABILITY)[number];
+
+export function isSeason(value: string): value is Season {
+  const isValidSeason: boolean = SEASONS.some(
+    (season: Season) => season === value
+  );
+  return isValidSeason;
+}
