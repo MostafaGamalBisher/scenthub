@@ -1,4 +1,4 @@
-import type { ProductsResponse } from '@/catalog/products';
+import type { ProductRecord, ProductsResponse } from '@/catalog/products';
 import { PRODUCTS } from '@/catalog/server/product-data';
 import { HOUSES } from '@/catalog/server/house-data';
 import type { HouseId } from '@/catalog/houses';
@@ -11,7 +11,9 @@ export function getProducts(
   houseIds: readonly HouseId[] = [],
   selectedSeasons: readonly Season[] = []
 ): ProductsResponse {
-  const productsEntries = Object.entries(PRODUCTS);
+  const productRecords: Record<string, ProductRecord> = PRODUCTS;
+
+  const productsEntries = Object.entries(productRecords);
 
   let housedProductsEntries;
 
