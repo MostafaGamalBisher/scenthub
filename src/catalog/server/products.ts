@@ -58,7 +58,7 @@ export function getProducts(
 
     if (houseRecord === undefined) {
       throw new Error(
-        `product ${productId} references is messing ${product.house} `
+        `product '${productId}' references messing house ${product.house} `
       );
     }
 
