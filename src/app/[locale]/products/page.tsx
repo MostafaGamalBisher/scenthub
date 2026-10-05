@@ -8,7 +8,7 @@ import { messages } from '@/i18n/messages';
 import { validateHouseIds } from '@/lib/validateHouseIds';
 import { validateSeasons } from '@/lib/validateSeasons';
 
-interface PaginationSearchParams {
+interface CatalogSearchParams {
   page?: string | string[];
   house?: string | string[];
   season?: string | string[];
@@ -16,7 +16,7 @@ interface PaginationSearchParams {
 
 interface ProductsPageProps {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<PaginationSearchParams>;
+  searchParams: Promise<CatalogSearchParams>;
 }
 
 export default async function ProductsPage({
