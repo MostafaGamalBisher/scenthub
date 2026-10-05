@@ -15,6 +15,10 @@ export type Messages = {
     message: string;
     recoveryLabel: string;
   };
+  seasonError: {
+    message: string;
+    recoveryLabel: string;
+  };
 };
 
 export const messages = {
@@ -43,6 +47,10 @@ export const messages = {
       message: 'This link contains invalid catalog settings',
       recoveryLabel: 'Return to catalog',
     },
+    seasonError: {
+      message: 'This link contains invalid catalog settings',
+      recoveryLabel: 'Return to catalog',
+    },
   },
   ar: {
     seasons: {
@@ -66,6 +74,10 @@ export const messages = {
       recoveryLabel: 'العودة إلى المنتجات',
     },
     blankHouseError: {
+      message: ' يحتوي هذا الرابط على إعدادات غير صالحة لعرض المنتجات',
+      recoveryLabel: 'العودة إلى المنتجات',
+    },
+    seasonError: {
       message: ' يحتوي هذا الرابط على إعدادات غير صالحة لعرض المنتجات',
       recoveryLabel: 'العودة إلى المنتجات',
     },

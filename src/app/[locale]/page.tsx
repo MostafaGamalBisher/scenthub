@@ -11,6 +11,7 @@ import { validateSeasons } from '@/lib/validateSeasons';
 interface PaginationSearchParams {
   page?: string | string[];
   house?: string | string[];
+  season?: string | string[];
 }
 
 interface HomeProps {
@@ -20,7 +21,7 @@ interface HomeProps {
 
 export default async function Home({ params, searchParams }: HomeProps) {
   const { locale } = await params;
-  const { page, house } = await searchParams;
+  const { page, house, season } = await searchParams;
 
   if (!isLocale(locale)) {
     notFound();
@@ -36,6 +37,16 @@ export default async function Home({ params, searchParams }: HomeProps) {
     houseIds = [house];
   } else {
     houseIds = house;
+  }
+
+  let selectedSeasons: string[];
+
+  if (season === undefined) {
+    selectedSeasons = [];
+  } else if (typeof season === 'string') {
+    selectedSeasons = [season];
+  } else {
+    selectedSeasons = season;
   }
 
   if (pageResult.ok === false) {
@@ -62,9 +73,23 @@ export default async function Home({ params, searchParams }: HomeProps) {
     );
   }
 
+  const validatedSelectedSeason = validateSeasons(selectedSeasons);
+
+  if (validatedSelectedSeason.ok === false) {
+    return (
+      <div>
+        <p>{messages[locale].seasonError.message}</p>
+        <Link href={`/${locale}`}>
+          {messages[locale].seasonError.recoveryLabel}
+        </Link>
+      </div>
+    );
+  }
+
   const productsResponse = getProducts(
     pageResult.value,
-    validatedHouseIds.value
+    validatedHouseIds.value,
+    validatedSelectedSeason.value
   );
 
   return (
