@@ -19,6 +19,10 @@ export type Messages = {
     message: string;
     recoveryLabel: string;
   };
+  home: {
+    welcome: string;
+    browseProducts: string;
+  };
 };
 
 export const messages = {
@@ -51,6 +55,10 @@ export const messages = {
       message: 'This link contains invalid catalog settings',
       recoveryLabel: 'Return to catalog',
     },
+    home: {
+      welcome: 'Welcome To ScentHub',
+      browseProducts: 'Go To Catalog',
+    },
   },
   ar: {
     seasons: {
@@ -80,6 +88,10 @@ export const messages = {
     seasonError: {
       message: ' يحتوي هذا الرابط على إعدادات غير صالحة لعرض المنتجات',
       recoveryLabel: 'العودة إلى المنتجات',
+    },
+    home: {
+      welcome: 'أهلا بك في سينتهاب',
+      browseProducts: 'إذهب إلى المنتجات',
     },
   },
 } as const satisfies Record<Locale, Messages>;

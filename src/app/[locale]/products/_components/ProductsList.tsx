@@ -1,10 +1,10 @@
 import type { Locale } from '@/i18n/config';
-import ProductSeasons from '@/app/[locale]/ProductSeasons';
-import ProductVariants from '@/app/[locale]/ProductVariants';
+import ProductSeasons from '@/app/[locale]/products/_components/ProductSeasons';
+import ProductVariants from '@/app/[locale]/products/_components/ProductVariants';
 import { formatNumber } from '@/lib/format-number';
 import type { CatalogProduct } from '@/catalog/products';
 import { messages } from '@/i18n/messages';
-import ProductImageDisplay from '@/app/[locale]/ProductImageDisplay';
+import ProductImageDisplay from '@/app/[locale]/products/_components/ProductImageDisplay';
 
 interface ProductsListProps {
   locale: Locale;
