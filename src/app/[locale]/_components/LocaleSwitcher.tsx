@@ -1,8 +1,13 @@
 'use client';
 
+import type { Locale } from '@/i18n/config';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-export default function LocaleSwitcher() {
+interface LocaleSwitcherProps {
+  locale: Locale;
+}
+
+export default function LocaleSwitcher({ locale }: LocaleSwitcherProps) {
   const pathName = usePathname();
   const searchParams = useSearchParams();
 
@@ -12,7 +17,7 @@ export default function LocaleSwitcher() {
 
   const queryString = searchParams.toString();
 
-  segments[1] = 'en';
+  segments[1] = locale;
 
   const newURL = `${newPathname}${queryString !== '' ? '?' + queryString : ''}`;
 
