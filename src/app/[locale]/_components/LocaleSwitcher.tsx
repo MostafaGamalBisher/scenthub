@@ -21,7 +21,5 @@ export default function LocaleSwitcher({ locale }: LocaleSwitcherProps) {
 
   const newURL = `${newPathname}${queryString !== '' ? '?' + queryString : ''}`;
 
-  console.log(newURL);
-
   return <p>{newURL}</p>;
 }
