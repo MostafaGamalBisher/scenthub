@@ -4,6 +4,7 @@ import '../globals.css';
 import { ThemeProvider } from '@/app/providers/theme-provider';
 import { isLocale } from '@/i18n/config';
 import { notFound } from 'next/navigation';
+import LocaleSwitcher from '@/app/[locale]/_components/LocaleSwitcher';
 
 export const metadata: Metadata = {
   title: 'scenthub',
@@ -32,6 +33,7 @@ export default async function RootLayout({
     >
       <body className="flex min-h-full flex-col font-text">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <LocaleSwitcher />
           {children}
         </ThemeProvider>
       </body>
