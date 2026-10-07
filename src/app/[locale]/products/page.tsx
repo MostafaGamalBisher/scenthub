@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { messages } from '@/i18n/messages';
 import { validateHouseIds } from '@/lib/validateHouseIds';
 import { validateSeasons } from '@/lib/validateSeasons';
+import SeasonFilter from './_components/SeasonFilter';
 
 interface CatalogSearchParams {
   page?: string | string[];
@@ -97,6 +98,10 @@ export default async function ProductsPage({
 
   return (
     <div>
+      <SeasonFilter
+        selectedSeasons={validatedSelectedSeason.value}
+        locale={locale}
+      />
       <ProductsList locale={locale} products={productsResponse.products} />
     </div>
   );
