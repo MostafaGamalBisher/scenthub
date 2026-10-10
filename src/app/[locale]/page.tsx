@@ -1,15 +1,10 @@
-import { isLocale, LOCALES } from '@/i18n/config';
+import { isLocale } from '@/i18n/config';
 import { messages } from '@/i18n/messages';
-
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
-}
-
-export function generateStaticParams() {
-  return LOCALES.map((locale) => ({ locale }));
 }
 
 export default async function Home({ params }: HomePageProps) {

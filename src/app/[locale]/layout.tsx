@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { amiri, ebGaramond, workSans, ibmPlexSansArabic } from '@/fonts/fonts';
 import '../globals.css';
 import { ThemeProvider } from '@/app/providers/theme-provider';
-import { isLocale } from '@/i18n/config';
+import { isLocale, LOCALES } from '@/i18n/config';
 import { notFound } from 'next/navigation';
 import LocaleSwitcher from '@/app/[locale]/_components/LocaleSwitcher';
 import { Suspense } from 'react';
@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   title: 'scenthub',
   description: 'fragrance e-commerce',
 };
+
+export function generateStaticParams() {
+  return LOCALES.map((locale) => ({ locale }));
+}
 
 export default async function RootLayout({
   children,
