@@ -35,6 +35,26 @@ export default function SeasonFilter({
     router.push(newURL);
   };
 
+  const updateSeasonSelection = (
+    currentSeasons: readonly Season[],
+    season: Season,
+    isChecked: boolean
+  ): readonly Season[] => {
+    const isIncluded = currentSeasons.includes(season);
+
+    let newSeasonsArray;
+
+    if (isIncluded && !isChecked) {
+      newSeasonsArray = currentSeasons.filter((slot) => slot !== season);
+    } else if (!isIncluded && isChecked) {
+      newSeasonsArray = [...currentSeasons, season];
+    } else {
+      newSeasonsArray = currentSeasons;
+    }
+
+    return newSeasonsArray;
+  };
+
   return (
     <div>
       {SEASONS.map((season) => (
