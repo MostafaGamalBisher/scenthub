@@ -44,7 +44,7 @@ export default function SeasonFilter({
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   const [optimisticSeasons, updateOptimisticSeasons] = useOptimistic(
     selectedSeasons,
@@ -93,7 +93,6 @@ export default function SeasonFilter({
           {messages[locale].seasons[season]}
         </label>
       ))}
-      <p>{isPending ? 'Pending' : 'Idle'}</p>
     </div>
   );
 }
