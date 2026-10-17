@@ -5,7 +5,7 @@ import type { Locale } from '@/i18n/config';
 import { messages } from '@/i18n/messages';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
-import { useOptimistic } from 'react';
+import { useOptimistic, useTransition } from 'react';
 
 interface SeasonFilterProps {
   selectedSeasons: readonly Season[];
@@ -44,6 +44,7 @@ export default function SeasonFilter({
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   const [optimisticSeasons, updateOptimisticSeasons] = useOptimistic(
     selectedSeasons,
@@ -52,8 +53,6 @@ export default function SeasonFilter({
   );
 
   const handleSeasonChange = (season: Season, isChecked: boolean) => {
-    updateOptimisticSeasons({ season, isChecked });
-
     const nextSeasons = updateSeasonSelection(
       optimisticSeasons,
       season,
@@ -73,7 +72,11 @@ export default function SeasonFilter({
     const targetQueryParameters = rawParams.toString();
 
     const newURL = `${pathname}${targetQueryParameters === '' ? '' : '?' + targetQueryParameters}`;
-    router.push(newURL);
+
+    startTransition(() => {
+      updateOptimisticSeasons({ season, isChecked });
+      router.push(newURL);
+    });
   };
 
   return (
@@ -90,6 +93,7 @@ export default function SeasonFilter({
           {messages[locale].seasons[season]}
         </label>
       ))}
+      <p>{isPending ? 'Pending' : 'Idle'}</p>
     </div>
   );
 }
