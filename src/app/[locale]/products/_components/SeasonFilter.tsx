@@ -64,7 +64,7 @@ export default function SeasonFilter({
 
     rawParams.delete('season');
 
-    nextSeasons.map((seasonParameter) =>
+    nextSeasons.forEach((seasonParameter) =>
       rawParams.append('season', seasonParameter)
     );
 
