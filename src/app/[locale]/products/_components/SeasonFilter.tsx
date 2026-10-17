@@ -52,16 +52,19 @@ export default function SeasonFilter({
   );
 
   const handleSeasonChange = (season: Season, isChecked: boolean) => {
-    updateOptimisticSeasons({
+    updateOptimisticSeasons({ season, isChecked });
+
+    const nextSeasons = updateSeasonSelection(
+      optimisticSeasons,
       season,
-      isChecked,
-    });
+      isChecked
+    );
 
     const rawParams = new URLSearchParams(searchParams.toString());
 
     rawParams.delete('season');
 
-    optimisticSeasons.map((seasonParameter) =>
+    nextSeasons.map((seasonParameter) =>
       rawParams.append('season', seasonParameter)
     );
 
