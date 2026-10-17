@@ -52,16 +52,22 @@ export default function SeasonFilter({
   );
 
   const handleSeasonChange = (season: Season, isChecked: boolean) => {
-    const nextParams = new URLSearchParams(searchParams.toString());
+    updateOptimisticSeasons({
+      season,
+      isChecked,
+    });
 
-    if (isChecked) {
-      nextParams.append('season', season);
-    } else {
-      nextParams.delete('season', season);
-    }
-    nextParams.delete('page');
+    const rawParams = new URLSearchParams(searchParams.toString());
 
-    const targetQueryParameters = nextParams.toString();
+    rawParams.delete('season');
+
+    optimisticSeasons.map((seasonParameter) =>
+      rawParams.append('season', seasonParameter)
+    );
+
+    rawParams.delete('page');
+
+    const targetQueryParameters = rawParams.toString();
 
     const newURL = `${pathname}${targetQueryParameters === '' ? '' : '?' + targetQueryParameters}`;
     router.push(newURL);
