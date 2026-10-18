@@ -7,6 +7,7 @@ import { validateHouseIds } from '@/lib/validateHouseIds';
 import { validateSeasons } from '@/lib/validateSeasons';
 import SeasonFilter from '@/app/[locale]/products/_components/SeasonFilter';
 import type { Locale } from '@/i18n/config';
+import ProductFilters from './ProductFilters';
 
 interface CatalogSearchParams {
   page?: string | string[];
@@ -92,9 +93,10 @@ export default async function ProductsContent({
 
   return (
     <div>
-      <SeasonFilter
+      <ProductFilters
         selectedSeasons={validatedSelectedSeason.value}
         locale={locale}
+        selectedHouseIds={validatedHouseIds.value}
       />
       <ProductsList locale={locale} products={productsResponse.products} />
     </div>
