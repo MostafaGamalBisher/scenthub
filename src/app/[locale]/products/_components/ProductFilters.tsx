@@ -14,6 +14,11 @@ interface ProductFiltersProps {
   locale: Locale;
 }
 
+interface FilterSelection {
+  selectedHouseIds: readonly HouseId[];
+  selectedSeasons: readonly Season[];
+}
+
 interface SeasonChange {
   season: Season;
   isChecked: boolean;
@@ -37,6 +42,22 @@ const updateSeasonSelection = (
   }
 
   return newSeasonsArray;
+};
+
+const updateFilterSelection = (
+  currentSelection: FilterSelection,
+  change: SeasonChange
+): FilterSelection => {
+  const newSeasonsSelection = updateSeasonSelection(
+    currentSelection.selectedSeasons,
+    change.season,
+    change.isChecked
+  );
+
+  return {
+    selectedHouseIds: currentSelection.selectedHouseIds,
+    selectedSeasons: newSeasonsSelection,
+  };
 };
 
 export default function ProductFilters({

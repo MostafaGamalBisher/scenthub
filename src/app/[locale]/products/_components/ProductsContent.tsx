@@ -5,9 +5,8 @@ import Link from 'next/link';
 import { messages } from '@/i18n/messages';
 import { validateHouseIds } from '@/lib/validateHouseIds';
 import { validateSeasons } from '@/lib/validateSeasons';
-import SeasonFilter from '@/app/[locale]/products/_components/SeasonFilter';
 import type { Locale } from '@/i18n/config';
-import ProductFilters from './ProductFilters';
+import ProductFilters from '@/app/[locale]/products/_components/ProductFilters';
 
 interface CatalogSearchParams {
   page?: string | string[];
