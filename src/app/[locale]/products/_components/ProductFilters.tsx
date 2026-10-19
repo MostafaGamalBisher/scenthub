@@ -7,6 +7,7 @@ import SeasonFilter from '@/app/[locale]/products/_components/SeasonFilter';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { useOptimistic, useTransition } from 'react';
+import HouseFilter from '@/app/[locale]/products/_components/HouseFilter';
 
 interface ProductFiltersProps {
   selectedSeasons: readonly Season[];
@@ -155,7 +156,16 @@ export default function ProductFilters({
       <SeasonFilter
         locale={locale}
         optimisticSeasons={optimisticSelection.selectedSeasons}
-        handleSeasonChange={handleFilterChange}
+        handleSeasonChange={(season, isChecked) =>
+          handleFilterChange({ type: 'season', season, isChecked })
+        }
+      />
+      <HouseFilter
+        locale={locale}
+        optimisticHouses={optimisticSelection.selectedHouseIds}
+        handleHouseIdChange={(houseId, isChecked) =>
+          handleFilterChange({ type: 'house', houseId, isChecked })
+        }
       />
     </div>
   );
