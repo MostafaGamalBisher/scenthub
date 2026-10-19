@@ -20,9 +20,18 @@ interface FilterSelection {
 }
 
 interface SeasonChange {
+  type: 'season';
   season: Season;
   isChecked: boolean;
 }
+
+interface HouseChange {
+  type: 'house';
+  houseId: HouseId;
+  isChecked: boolean;
+}
+
+type FilterChange = SeasonChange | HouseChange;
 
 const updateSeasonSelection = (
   currentSeasons: readonly Season[],
@@ -44,20 +53,53 @@ const updateSeasonSelection = (
   return newSeasonsArray;
 };
 
+const updateHouseSelection = (
+  currentHouseIds: readonly HouseId[],
+  house: HouseId,
+  isChecked: boolean
+): readonly HouseId[] => {
+  const isIncluded = currentHouseIds.includes(house);
+
+  let newHouseIds;
+
+  if (!isIncluded && isChecked) {
+    newHouseIds = [...currentHouseIds, house];
+  } else if (isIncluded && !isChecked) {
+    newHouseIds = currentHouseIds.filter((slot) => slot !== house);
+  } else {
+    newHouseIds = currentHouseIds;
+  }
+
+  return newHouseIds;
+};
+
 const updateFilterSelection = (
   currentSelection: FilterSelection,
-  change: SeasonChange
+  change: FilterChange
 ): FilterSelection => {
-  const newSeasonsSelection = updateSeasonSelection(
-    currentSelection.selectedSeasons,
-    change.season,
-    change.isChecked
-  );
+  if (change.type === 'season') {
+    const newSeasonsSelection = updateSeasonSelection(
+      currentSelection.selectedSeasons,
+      change.season,
+      change.isChecked
+    );
 
-  return {
-    selectedHouseIds: currentSelection.selectedHouseIds,
-    selectedSeasons: newSeasonsSelection,
-  };
+    return {
+      selectedHouseIds: currentSelection.selectedHouseIds,
+      selectedSeasons: newSeasonsSelection,
+    };
+  } else {
+    const newHouseIdsSelection = updateHouseSelection(
+      currentSelection.selectedHouseIds,
+      change.houseId,
+      change.isChecked
+    );
+
+    return {
+      selectedHouseIds: newHouseIdsSelection,
+      selectedSeasons: currentSelection.selectedSeasons,
+    };
+  }
 };
 
 export default function ProductFilters({
@@ -80,11 +122,8 @@ export default function ProductFilters({
     updateFilterSelection
   );
 
-  const handleSeasonChange = (season: Season, isChecked: boolean) => {
-    const nextSelection = updateFilterSelection(optimisticSelection, {
-      season,
-      isChecked,
-    });
+  const handleFilterChange = (change: FilterChange) => {
+    const nextSelection = updateFilterSelection(optimisticSelection, change);
 
     const rawParams = new URLSearchParams(searchParams.toString());
 
@@ -106,7 +145,7 @@ export default function ProductFilters({
     const newURL = `${pathname}${targetQueryParameters === '' ? '' : '?' + targetQueryParameters}`;
 
     startTransition(() => {
-      updateOptimisticSelection({ season, isChecked });
+      updateOptimisticSelection(change);
       router.push(newURL);
     });
   };
@@ -116,8 +155,22 @@ export default function ProductFilters({
       <SeasonFilter
         locale={locale}
         optimisticSeasons={optimisticSelection.selectedSeasons}
-        handleSeasonChange={handleSeasonChange}
+        handleSeasonChange={handleFilterChange}
       />
     </div>
   );
 }
+
+const current: FilterSelection = {
+  selectedHouseIds: ['xerjoff'],
+  selectedSeasons: ['winter', 'spring'],
+};
+
+const result = updateFilterSelection(current, {
+  type: 'house',
+  houseId: 'xerjoff',
+  isChecked: false,
+});
+
+console.log('Original:', current);
+console.log('Result:', result);
