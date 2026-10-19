@@ -8,7 +8,8 @@ const eslintConfig = defineConfig([
   {
     rules: {
       // Variables
-      'no-unused-vars': 'warn',
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'warn',
       'no-undef': 'off',
       'no-use-before-define': 'error',
       'no-shadow': 'warn',

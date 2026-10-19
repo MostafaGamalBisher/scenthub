@@ -93,9 +93,9 @@ export default async function ProductsContent({
 
   const housesEntries = Object.entries(HOUSES);
 
-  const houses = housesEntries.map(([houseId, house]) => ({
+  const houses = housesEntries.map(([houseId, houseRecord]) => ({
     id: houseId,
-    name: house.name[locale],
+    name: houseRecord.name[locale],
   }));
 
   return (
