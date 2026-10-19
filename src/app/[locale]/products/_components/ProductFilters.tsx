@@ -70,10 +70,14 @@ export default function ProductFilters({
   const router = useRouter();
   const [, startTransition] = useTransition();
 
-  const [optimisticSeasons, updateOptimisticSeasons] = useOptimistic(
+  const confirmedSelection: FilterSelection = {
+    selectedHouseIds,
     selectedSeasons,
-    (currentSeasons, change: SeasonChange) =>
-      updateSeasonSelection(currentSeasons, change.season, change.isChecked)
+  };
+
+  const [optimisticSelection, updateOptimisticSelection] = useOptimistic(
+    confirmedSelection,
+    updateFilterSelection
   );
 
   const handleSeasonChange = (season: Season, isChecked: boolean) => {
@@ -107,7 +111,7 @@ export default function ProductFilters({
     <div>
       <SeasonFilter
         locale={locale}
-        optimisticSeasons={optimisticSeasons}
+        optimisticSeasons={optimisticSelection.selectedSeasons}
         handleSeasonChange={handleSeasonChange}
       />
     </div>
