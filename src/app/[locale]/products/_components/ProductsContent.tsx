@@ -7,6 +7,7 @@ import { validateHouseIds } from '@/lib/validateHouseIds';
 import { validateSeasons } from '@/lib/validateSeasons';
 import type { Locale } from '@/i18n/config';
 import ProductFilters from '@/app/[locale]/products/_components/ProductFilters';
+import { HOUSES } from '@/catalog/server/house-data';
 
 interface CatalogSearchParams {
   page?: string | string[];
@@ -90,12 +91,20 @@ export default async function ProductsContent({
     validatedSelectedSeason.value
   );
 
+  const housesEntries = Object.entries(HOUSES);
+
+  const houses = housesEntries.map(([houseId, house]) => ({
+    id: houseId,
+    name: house.name[locale],
+  }));
+
   return (
     <div>
       <ProductFilters
         selectedSeasons={validatedSelectedSeason.value}
         locale={locale}
         selectedHouseIds={validatedHouseIds.value}
+        houses={houses}
       />
       <ProductsList locale={locale} products={productsResponse.products} />
     </div>

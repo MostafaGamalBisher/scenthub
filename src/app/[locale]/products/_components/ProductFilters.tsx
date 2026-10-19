@@ -13,6 +13,7 @@ interface ProductFiltersProps {
   selectedSeasons: readonly Season[];
   selectedHouseIds: readonly HouseId[];
   locale: Locale;
+  houses: readonly { id: HouseId; name: string }[];
 }
 
 interface FilterSelection {
@@ -107,6 +108,7 @@ export default function ProductFilters({
   selectedSeasons,
   selectedHouseIds,
   locale,
+  houses,
 }: ProductFiltersProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -161,7 +163,7 @@ export default function ProductFilters({
         }
       />
       <HouseFilter
-        locale={locale}
+        houses={houses}
         optimisticHouses={optimisticSelection.selectedHouseIds}
         handleHouseIdChange={(houseId, isChecked) =>
           handleFilterChange({ type: 'house', houseId, isChecked })
@@ -170,17 +172,3 @@ export default function ProductFilters({
     </div>
   );
 }
-
-const current: FilterSelection = {
-  selectedHouseIds: ['xerjoff'],
-  selectedSeasons: ['winter', 'spring'],
-};
-
-const result = updateFilterSelection(current, {
-  type: 'house',
-  houseId: 'xerjoff',
-  isChecked: false,
-});
-
-console.log('Original:', current);
-console.log('Result:', result);
