@@ -13,5 +13,20 @@ export default function HouseFilter({
   handleHouseIdChange,
   houses,
 }: HouseFilterProps) {
-  return <></>;
+  return (
+    <div>
+      {houses.map((house) => (
+        <label key={house.id}>
+          <input
+            type="checkbox"
+            checked={optimisticHouses.includes(house.id)}
+            onChange={(event) =>
+              handleHouseIdChange(house.id, event.currentTarget.checked)
+            }
+          />
+          {house.name}
+        </label>
+      ))}
+    </div>
+  );
 }
