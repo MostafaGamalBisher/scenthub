@@ -82,7 +82,7 @@ export default function ProductFilters({
 
   const handleSeasonChange = (season: Season, isChecked: boolean) => {
     const nextSeasons = updateSeasonSelection(
-      optimisticSeasons,
+      optimisticSelection.selectedSeasons,
       season,
       isChecked
     );
@@ -102,7 +102,7 @@ export default function ProductFilters({
     const newURL = `${pathname}${targetQueryParameters === '' ? '' : '?' + targetQueryParameters}`;
 
     startTransition(() => {
-      updateOptimisticSeasons({ season, isChecked });
+      updateOptimisticSelection({ season, isChecked });
       router.push(newURL);
     });
   };
