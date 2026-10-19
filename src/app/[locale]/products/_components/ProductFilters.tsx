@@ -81,18 +81,22 @@ export default function ProductFilters({
   );
 
   const handleSeasonChange = (season: Season, isChecked: boolean) => {
-    const nextSeasons = updateSeasonSelection(
-      optimisticSelection.selectedSeasons,
+    const nextSelection = updateFilterSelection(optimisticSelection, {
       season,
-      isChecked
-    );
+      isChecked,
+    });
 
     const rawParams = new URLSearchParams(searchParams.toString());
 
     rawParams.delete('season');
+    rawParams.delete('house');
 
-    nextSeasons.forEach((seasonParameter) =>
+    nextSelection.selectedSeasons.forEach((seasonParameter) =>
       rawParams.append('season', seasonParameter)
+    );
+
+    nextSelection.selectedHouseIds.forEach((houseParameter) =>
+      rawParams.append('house', houseParameter)
     );
 
     rawParams.delete('page');
