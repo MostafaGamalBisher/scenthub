@@ -89,3 +89,53 @@ export function getProducts(
   };
   return productsResponse;
 }
+
+export function getProductsThroughPage(
+  page: number = 1,
+  houseIds: readonly HouseId[] = [],
+  selectedSeasons: readonly Season[] = []
+): ProductsResponse {
+  const matchingProductsEntries = getMatchingProductEntries(
+    houseIds,
+    selectedSeasons
+  );
+
+  const totalPages = Math.ceil(
+    matchingProductsEntries.length / PRODUCTS_PAGE_SIZE
+  );
+
+  let effectivePage;
+  if (page > totalPages) {
+    effectivePage = totalPages;
+  } else {
+    effectivePage = page;
+  }
+
+  const end = effectivePage * PRODUCTS_PAGE_SIZE;
+
+  const pagedProductEntries = matchingProductsEntries.slice(0, end);
+
+  const catalogProducts = pagedProductEntries.map(([productId, product]) => {
+    const houseRecord = HOUSES[product.house];
+
+    if (houseRecord === undefined) {
+      throw new Error(
+        `product '${productId}' references messing house ${product.house} `
+      );
+    }
+
+    return {
+      ...product,
+      house: { id: product.house, name: houseRecord.name },
+      id: productId,
+    };
+  });
+
+  const productsResponse = {
+    products: catalogProducts,
+    page: page,
+    limit: PRODUCTS_PAGE_SIZE,
+    total: matchingProductsEntries.length,
+  };
+  return productsResponse;
+}
