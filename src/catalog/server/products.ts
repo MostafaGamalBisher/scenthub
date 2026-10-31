@@ -6,11 +6,10 @@ import type { Season } from '@/catalog/taxonomy';
 
 const PRODUCTS_PAGE_SIZE = 12;
 
-export function getProducts(
-  page: number = 1,
-  houseIds: readonly HouseId[] = [],
-  selectedSeasons: readonly Season[] = []
-): ProductsResponse {
+const getMatchingProductEntries = (
+  houseIds: readonly HouseId[],
+  selectedSeasons: readonly Season[]
+) => {
   const productsEntries = Object.entries(PRODUCTS);
 
   let housedProductsEntries;
@@ -34,6 +33,19 @@ export function getProducts(
   }
 
   const matchingProductsEntries = seasonedProductsEntries;
+
+  return matchingProductsEntries;
+};
+
+export function getProducts(
+  page: number = 1,
+  houseIds: readonly HouseId[] = [],
+  selectedSeasons: readonly Season[] = []
+): ProductsResponse {
+  const matchingProductsEntries = getMatchingProductEntries(
+    houseIds,
+    selectedSeasons
+  );
 
   const totalPages = Math.ceil(
     matchingProductsEntries.length / PRODUCTS_PAGE_SIZE
