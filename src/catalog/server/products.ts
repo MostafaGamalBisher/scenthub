@@ -104,12 +104,7 @@ export function getProductsThroughPage(
     matchingProductsEntries.length / PRODUCTS_PAGE_SIZE
   );
 
-  let effectivePage;
-  if (page > totalPages) {
-    effectivePage = totalPages;
-  } else {
-    effectivePage = page;
-  }
+  const effectivePage = Math.max(1, Math.min(page, totalPages));
 
   const end = effectivePage * PRODUCTS_PAGE_SIZE;
 
@@ -133,7 +128,7 @@ export function getProductsThroughPage(
 
   const productsResponse = {
     products: catalogProducts,
-    page: page,
+    page: effectivePage,
     limit: PRODUCTS_PAGE_SIZE,
     total: matchingProductsEntries.length,
   };
