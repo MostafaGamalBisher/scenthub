@@ -1,4 +1,4 @@
-import type { ProductsResponse } from '@/catalog/products';
+import type { ProductRecord, ProductsResponse } from '@/catalog/products';
 import { PRODUCTS } from '@/catalog/server/product-data';
 import { HOUSES } from '@/catalog/server/house-data';
 import type { HouseId } from '@/catalog/houses';
@@ -35,6 +35,26 @@ const getMatchingProductEntries = (
   const matchingProductsEntries = seasonedProductsEntries;
 
   return matchingProductsEntries;
+};
+
+const mapProductEntries = (entriesArray: [string, ProductRecord][]) => {
+  const catalogProducts = entriesArray.map(([productId, product]) => {
+    const houseRecord = HOUSES[product.house];
+
+    if (houseRecord === undefined) {
+      throw new Error(
+        `product '${productId}' references messing house ${product.house} `
+      );
+    }
+
+    return {
+      ...product,
+      house: { id: product.house, name: houseRecord.name },
+      id: productId,
+    };
+  });
+
+  return catalogProducts;
 };
 
 export function getProducts(
@@ -81,8 +101,10 @@ export function getProducts(
     };
   });
 
+  const test = mapProductEntries(pagedProductEntries);
+
   const productsResponse = {
-    products: catalogProducts,
+    products: test,
     page: page,
     limit: PRODUCTS_PAGE_SIZE,
     total: matchingProductsEntries.length,
