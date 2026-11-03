@@ -37,13 +37,15 @@ const getMatchingProductEntries = (
   return matchingProductsEntries;
 };
 
-const mapProductEntries = (entriesArray: [string, ProductRecord][]) => {
+const mapProductEntries = (
+  entriesArray: readonly [string, ProductRecord][]
+) => {
   const catalogProducts = entriesArray.map(([productId, product]) => {
     const houseRecord = HOUSES[product.house];
 
     if (houseRecord === undefined) {
       throw new Error(
-        `product '${productId}' references messing house ${product.house} `
+        `product '${productId}' references missing house ${product.house} `
       );
     }
 
@@ -85,26 +87,10 @@ export function getProducts(
 
   const pagedProductEntries = matchingProductsEntries.slice(start, end);
 
-  const catalogProducts = pagedProductEntries.map(([productId, product]) => {
-    const houseRecord = HOUSES[product.house];
-
-    if (houseRecord === undefined) {
-      throw new Error(
-        `product '${productId}' references messing house ${product.house} `
-      );
-    }
-
-    return {
-      ...product,
-      house: { id: product.house, name: houseRecord.name },
-      id: productId,
-    };
-  });
-
-  const test = mapProductEntries(pagedProductEntries);
+  const catalogProducts = mapProductEntries(pagedProductEntries);
 
   const productsResponse = {
-    products: test,
+    products: catalogProducts,
     page: page,
     limit: PRODUCTS_PAGE_SIZE,
     total: matchingProductsEntries.length,
@@ -132,21 +118,7 @@ export function getProductsThroughPage(
 
   const pagedProductEntries = matchingProductsEntries.slice(0, end);
 
-  const catalogProducts = pagedProductEntries.map(([productId, product]) => {
-    const houseRecord = HOUSES[product.house];
-
-    if (houseRecord === undefined) {
-      throw new Error(
-        `product '${productId}' references messing house ${product.house} `
-      );
-    }
-
-    return {
-      ...product,
-      house: { id: product.house, name: houseRecord.name },
-      id: productId,
-    };
-  });
+  const catalogProducts = mapProductEntries(pagedProductEntries);
 
   const productsResponse = {
     products: catalogProducts,
