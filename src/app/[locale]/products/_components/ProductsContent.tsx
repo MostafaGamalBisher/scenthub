@@ -1,5 +1,5 @@
 import ProductsList from '@/app/[locale]/products/_components/ProductsList';
-import { getProducts } from '@/catalog/server/products';
+import { getProducts, getProductsThroughPage } from '@/catalog/server/products';
 import { parsePositiveInteger } from '@/lib/parsePositiveInteger';
 import Link from 'next/link';
 import { messages } from '@/i18n/messages';
@@ -85,7 +85,7 @@ export default async function ProductsContent({
     );
   }
 
-  const productsResponse = getProducts(
+  const productsResponse = getProductsThroughPage(
     pageResult.value,
     validatedHouseIds.value,
     validatedSelectedSeason.value
