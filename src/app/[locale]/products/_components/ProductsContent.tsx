@@ -1,4 +1,3 @@
-import ProductsList from '@/app/[locale]/products/_components/ProductsList';
 import { getProductsThroughPage } from '@/catalog/server/products';
 import { parsePositiveInteger } from '@/lib/parsePositiveInteger';
 import Link from 'next/link';
@@ -8,7 +7,7 @@ import { validateSeasons } from '@/lib/validateSeasons';
 import type { Locale } from '@/i18n/config';
 import ProductFilters from '@/app/[locale]/products/_components/ProductFilters';
 import { HOUSES } from '@/catalog/server/house-data';
-import CatalogResults from './CatalogResults';
+import CatalogResults from '@/app/[locale]/products/_components/CatalogResults';
 
 interface CatalogSearchParams {
   page?: string | string[];
