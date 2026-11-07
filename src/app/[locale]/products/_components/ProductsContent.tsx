@@ -1,5 +1,4 @@
-import ProductsList from '@/app/[locale]/products/_components/ProductsList';
-import { getProducts } from '@/catalog/server/products';
+import { getProductsThroughPage } from '@/catalog/server/products';
 import { parsePositiveInteger } from '@/lib/parsePositiveInteger';
 import Link from 'next/link';
 import { messages } from '@/i18n/messages';
@@ -8,6 +7,7 @@ import { validateSeasons } from '@/lib/validateSeasons';
 import type { Locale } from '@/i18n/config';
 import ProductFilters from '@/app/[locale]/products/_components/ProductFilters';
 import { HOUSES } from '@/catalog/server/house-data';
+import CatalogResults from '@/app/[locale]/products/_components/CatalogResults';
 
 interface CatalogSearchParams {
   page?: string | string[];
@@ -85,7 +85,7 @@ export default async function ProductsContent({
     );
   }
 
-  const productsResponse = getProducts(
+  const productsResponse = getProductsThroughPage(
     pageResult.value,
     validatedHouseIds.value,
     validatedSelectedSeason.value
@@ -98,6 +98,11 @@ export default async function ProductsContent({
     name: houseRecord.name[locale],
   }));
 
+  const selectionKey = JSON.stringify([
+    [...validatedHouseIds.value].sort(),
+    [...validatedSelectedSeason.value].sort(),
+  ]);
+
   return (
     <div>
       <ProductFilters
@@ -106,7 +111,14 @@ export default async function ProductsContent({
         selectedHouseIds={validatedHouseIds.value}
         houses={houses}
       />
-      <ProductsList locale={locale} products={productsResponse.products} />
+
+      <CatalogResults
+        locale={locale}
+        initialResponse={productsResponse}
+        seasons={validatedSelectedSeason.value}
+        houseIds={validatedHouseIds.value}
+        key={selectionKey}
+      />
     </div>
   );
 }
