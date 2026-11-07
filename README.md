@@ -9,7 +9,7 @@ broader commerce functionality is added.
 
 ## Run locally
 
-Use Node.js 20.9 or later and npm. From the project directory:
+Use Node.js 26 LTS or later and npm. From the project directory:
 
 ```bash
 npm ci
