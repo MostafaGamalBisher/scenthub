@@ -1,4 +1,5 @@
 import type { ProductRecord } from '@/catalog/products';
+import { SAMPLE_PRODUCTS } from '@/catalog/server/sample-products';
 
 export const PRODUCTS: Readonly<Record<string, ProductRecord>> = {
   'alexandria-ii': {
@@ -75,4 +76,5 @@ export const PRODUCTS: Readonly<Record<string, ProductRecord>> = {
     ],
     notes: { top: ['lemon'], heart: ['jasmine'], base: ['vanilla'] },
   },
+  ...SAMPLE_PRODUCTS,
 };
