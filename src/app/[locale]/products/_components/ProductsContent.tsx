@@ -107,7 +107,12 @@ export default async function ProductsContent({
         houses={houses}
       />
 
-      <CatalogResults locale={locale} products={productsResponse.products} />
+      <CatalogResults
+        locale={locale}
+        initialResponse={productsResponse}
+        seasons={validatedSelectedSeason.value}
+        houseIds={validatedHouseIds.value}
+      />
     </div>
   );
 }

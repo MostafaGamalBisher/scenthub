@@ -1,26 +1,28 @@
 'use client';
 
-import type { CatalogProduct } from '@/catalog/products';
+import type { ProductsResponse } from '@/catalog/products';
 import type { Locale } from '@/i18n/config';
 import ProductsList from '@/app/[locale]/products/_components/ProductsList';
 import { useState } from 'react';
-import { getProducts } from '@/catalog/server/products';
+import type { Season } from '@/catalog/taxonomy';
+import type { HouseId } from '@/catalog/houses';
 
 interface CatalogResultsProps {
-  products: readonly CatalogProduct[];
+  initialResponse: ProductsResponse;
+  seasons: readonly Season[];
+  houseIds: readonly HouseId[];
   locale: Locale;
 }
 
 export default function CatalogResults({
   locale,
-  products,
+  initialResponse,
+  seasons,
+  houseIds,
 }: CatalogResultsProps) {
-  const [accumulativeProducts, setAccumulativeProducts] = useState(products);
-
-  //   const loadMoreHandler = (currentProducts) => {
-  //     const newProductsBatch = getProducts();
-  //     const addMoreProducts = [...currentProducts];
-  //   };
+  const [accumulativeProducts, setAccumulativeProducts] = useState(
+    initialResponse.products
+  );
 
   return (
     <div>
