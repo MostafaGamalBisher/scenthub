@@ -17,15 +17,15 @@ export default function CatalogResults({
 }: CatalogResultsProps) {
   const [accumulativeProducts, setAccumulativeProducts] = useState(products);
 
-  const loadMoreHandler = (currentProducts) => {
-    const newProductsBatch = getProducts();
-    const addMoreProducts = [...currentProducts];
-  };
+  //   const loadMoreHandler = (currentProducts) => {
+  //     const newProductsBatch = getProducts();
+  //     const addMoreProducts = [...currentProducts];
+  //   };
 
   return (
     <div>
       <ProductsList locale={locale} products={accumulativeProducts} />
-      <button onClick={}>Load More</button>
+      {/* <button onClick={}>Load More</button> */}
     </div>
   );
 }
