@@ -98,6 +98,11 @@ export default async function ProductsContent({
     name: houseRecord.name[locale],
   }));
 
+  const selectionKey = JSON.stringify([
+    [...validatedHouseIds.value].sort(),
+    [...validatedSelectedSeason.value].sort(),
+  ]);
+
   return (
     <div>
       <ProductFilters
@@ -112,6 +117,7 @@ export default async function ProductsContent({
         initialResponse={productsResponse}
         seasons={validatedSelectedSeason.value}
         houseIds={validatedHouseIds.value}
+        key={selectionKey}
       />
     </div>
   );
