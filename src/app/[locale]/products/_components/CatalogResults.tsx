@@ -26,7 +26,11 @@ export default function CatalogResults({
 
   const [currentPage, setCurrentPage] = useState(initialResponse.page);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const loadMoreHandler = async () => {
+    setIsLoading(true);
+
     const nextPage = currentPage + 1;
     const params = new URLSearchParams();
 
@@ -51,6 +55,8 @@ export default function CatalogResults({
     const newURL = `${window.location.pathname}?${newQuery}`;
 
     window.history.replaceState(null, '', newURL);
+
+    setIsLoading(false);
   };
 
   return (
@@ -58,7 +64,9 @@ export default function CatalogResults({
       <ProductsList locale={locale} products={accumulativeProducts} />
       <button
         onClick={loadMoreHandler}
-        disabled={accumulativeProducts.length >= initialResponse.total}
+        disabled={
+          accumulativeProducts.length >= initialResponse.total || isLoading
+        }
       >
         Load More
       </button>
