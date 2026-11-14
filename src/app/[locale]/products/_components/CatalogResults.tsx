@@ -47,7 +47,6 @@ export default function CatalogResults({
 
     setAccumulativeProducts((prev) => [...prev, ...newBatch.products]);
     setCurrentPage(newBatch.page);
-    console.log(currentPage);
   };
 
   return (
