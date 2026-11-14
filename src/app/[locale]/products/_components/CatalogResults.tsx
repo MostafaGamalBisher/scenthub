@@ -45,10 +45,9 @@ export default function CatalogResults({
 
     const newBatch = await response.json();
 
-    console.log(newBatch);
-
-    console.log(newBatch.page);
-    console.log(newBatch.products.length);
+    setAccumulativeProducts((prev) => [...prev, ...newBatch.products]);
+    setCurrentPage(newBatch.page);
+    console.log(currentPage);
   };
 
   return (
