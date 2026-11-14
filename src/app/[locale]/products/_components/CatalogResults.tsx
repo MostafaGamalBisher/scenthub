@@ -47,6 +47,10 @@ export default function CatalogResults({
 
     setAccumulativeProducts((prev) => [...prev, ...newBatch.products]);
     setCurrentPage(newBatch.page);
+
+    const newURL = `${window.location.pathname}?${newQuery}`;
+
+    window.history.replaceState(null, '', newURL);
   };
 
   return (
