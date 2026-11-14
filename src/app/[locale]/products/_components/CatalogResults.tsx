@@ -48,7 +48,6 @@ export default function CatalogResults({
       const response = await fetch(`/api/products?${newQuery}`);
 
       if (!response.ok) {
-        setLoadMoreFailed(true);
         throw new Error(`Load More request failed (HTTP ${response.status})`);
       }
 
