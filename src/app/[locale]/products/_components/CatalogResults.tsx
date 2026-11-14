@@ -26,7 +26,7 @@ export default function CatalogResults({
 
   const [currentPage, setCurrentPage] = useState(initialResponse.page);
 
-  const loadMoreHandler = () => {
+  const loadMoreHandler = async () => {
     const nextPage = currentPage + 1;
     const params = new URLSearchParams();
 
@@ -36,7 +36,15 @@ export default function CatalogResults({
 
     const newQuery = params.toString();
 
-    console.log(newQuery);
+    const response = await fetch(`/api/products?${newQuery}`);
+
+    if (!response.ok) {
+      console.log(response.status);
+    }
+
+    const newBatch = response.json();
+
+    console.log(newBatch);
   };
 
   return (
