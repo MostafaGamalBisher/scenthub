@@ -40,23 +40,25 @@ export default function CatalogResults({
 
     const newQuery = params.toString();
 
-    const response = await fetch(`/api/products?${newQuery}`);
+    try {
+      const response = await fetch(`/api/products?${newQuery}`);
 
-    if (!response.ok) {
-      console.log(response.status);
-      return;
+      if (!response.ok) {
+        console.log(response.status);
+        return;
+      }
+
+      const newBatch = await response.json();
+
+      setAccumulativeProducts((prev) => [...prev, ...newBatch.products]);
+      setCurrentPage(newBatch.page);
+
+      const newURL = `${window.location.pathname}?${newQuery}`;
+
+      window.history.replaceState(null, '', newURL);
+    } finally {
+      setIsLoading(false);
     }
-
-    const newBatch = await response.json();
-
-    setAccumulativeProducts((prev) => [...prev, ...newBatch.products]);
-    setCurrentPage(newBatch.page);
-
-    const newURL = `${window.location.pathname}?${newQuery}`;
-
-    window.history.replaceState(null, '', newURL);
-
-    setIsLoading(false);
   };
 
   return (
