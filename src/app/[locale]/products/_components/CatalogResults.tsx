@@ -40,11 +40,15 @@ export default function CatalogResults({
 
     if (!response.ok) {
       console.log(response.status);
+      return;
     }
 
-    const newBatch = response.json();
+    const newBatch = await response.json();
 
     console.log(newBatch);
+
+    console.log(newBatch.page);
+    console.log(newBatch.products.length);
   };
 
   return (
