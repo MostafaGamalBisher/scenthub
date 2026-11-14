@@ -6,6 +6,7 @@ import ProductsList from '@/app/[locale]/products/_components/ProductsList';
 import { useState } from 'react';
 import type { Season } from '@/catalog/taxonomy';
 import type { HouseId } from '@/catalog/houses';
+import { messages } from '@/i18n/messages';
 
 interface CatalogResultsProps {
   initialResponse: ProductsResponse;
@@ -28,8 +29,11 @@ export default function CatalogResults({
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const [loadMoreFailed, setLoadMoreFailed] = useState(false);
+
   const loadMoreHandler = async () => {
     setIsLoading(true);
+    setLoadMoreFailed(false);
 
     const nextPage = currentPage + 1;
     const params = new URLSearchParams();
@@ -44,8 +48,8 @@ export default function CatalogResults({
       const response = await fetch(`/api/products?${newQuery}`);
 
       if (!response.ok) {
-        console.log(response.status);
-        return;
+        setLoadMoreFailed(true);
+        throw new Error(`Load More request failed (HTTP ${response.status})`);
       }
 
       const newBatch = await response.json();
@@ -56,6 +60,8 @@ export default function CatalogResults({
       const newURL = `${window.location.pathname}?${newQuery}`;
 
       window.history.replaceState(null, '', newURL);
+    } catch {
+      setLoadMoreFailed(true);
     } finally {
       setIsLoading(false);
     }
@@ -72,6 +78,7 @@ export default function CatalogResults({
       >
         Load More
       </button>
+      {loadMoreFailed && <p>{messages[locale].loadMoreFailed}</p>}
     </div>
   );
 }
