@@ -24,10 +24,21 @@ export default function CatalogResults({
     initialResponse.products
   );
 
+  const [currentPage, setCurrentPage] = useState(initialResponse.page);
+
+  const loadMoreHandler = () => {
+    const nextPage = setCurrentPage(currentPage + 1);
+    const params = new URLSearchParams(window.location.search);
+
+    params.set('page', `${nextPage}`);
+    params.append('house', `${houseIds.map((houseId) => houseId)}`);
+    params.append('season', `${seasons.map((season) => season)}`);
+  };
+
   return (
     <div>
       <ProductsList locale={locale} products={accumulativeProducts} />
-      {/* <button onClick={}>Load More</button> */}
+      <button onClick={loadMoreHandler}>Load More</button>
     </div>
   );
 }
