@@ -46,8 +46,13 @@ Product images currently use remote placeholders from `placehold.co`.
 
 ## Current scope
 
-The app uses an in-memory sample catalog with two products: Alexandria II and
-Layton. Product presentation is still an early implementation. Interactive filter
+The in-memory catalog contains 29 fragrances across five houses. Prices, sizes,
+stock and season tags are sample data for testing. Page size is 12: the unfiltered
+API returns batches of 12, 12 and 5. Filtering by `house=xerjoff` gives batches
+of 12 and 1. The summer filter matches exactly 12 products, while
+`house=amouage&season=summer` has no matches.
+
+Product presentation is still an early implementation. Interactive filter
 controls, pagination navigation, search, product detail pages and language/theme
 switching controls have not been built yet.
 

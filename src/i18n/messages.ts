@@ -23,6 +23,7 @@ export type Messages = {
     welcome: string;
     browseProducts: string;
   };
+  loadMoreFailed: string;
 };
 
 export const messages = {
@@ -59,6 +60,7 @@ export const messages = {
       welcome: 'Welcome To ScentHub',
       browseProducts: 'Go To Catalog',
     },
+    loadMoreFailed: 'Couldn’t load more products. Try again.',
   },
   ar: {
     seasons: {
@@ -93,5 +95,6 @@ export const messages = {
       welcome: 'أهلا بك في سينتهاب',
       browseProducts: 'إذهب إلى المنتجات',
     },
+    loadMoreFailed: 'لم يتم تحميل المزيد من المنتجات, حاول مرة أخرى',
   },
 } as const satisfies Record<Locale, Messages>;

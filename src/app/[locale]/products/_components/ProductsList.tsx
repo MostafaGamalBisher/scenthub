@@ -19,7 +19,7 @@ function ProductsList({ locale, products }: ProductsListProps) {
   return (
     <div>
       <p>products list</p>
-      <ul>
+      <ul className="flex gap-1">
         {products.map((product) => (
           <li key={product.id}>
             <ProductImageDisplay
