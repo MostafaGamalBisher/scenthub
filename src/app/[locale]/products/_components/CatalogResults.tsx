@@ -53,7 +53,12 @@ export default function CatalogResults({
   return (
     <div>
       <ProductsList locale={locale} products={accumulativeProducts} />
-      <button onClick={loadMoreHandler}>Load More</button>
+      <button
+        onClick={loadMoreHandler}
+        disabled={accumulativeProducts.length >= initialResponse.total}
+      >
+        Load More
+      </button>
     </div>
   );
 }
