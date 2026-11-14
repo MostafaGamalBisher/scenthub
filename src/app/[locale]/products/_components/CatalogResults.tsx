@@ -27,12 +27,16 @@ export default function CatalogResults({
   const [currentPage, setCurrentPage] = useState(initialResponse.page);
 
   const loadMoreHandler = () => {
-    const nextPage = setCurrentPage(currentPage + 1);
-    const params = new URLSearchParams(window.location.search);
+    const nextPage = currentPage + 1;
+    const params = new URLSearchParams();
 
     params.set('page', `${nextPage}`);
-    params.append('house', `${houseIds.map((houseId) => houseId)}`);
-    params.append('season', `${seasons.map((season) => season)}`);
+    houseIds.forEach((houseId) => params.append('house', houseId));
+    seasons.forEach((season) => params.append('season', season));
+
+    const newQuery = params.toString();
+
+    console.log(newQuery);
   };
 
   return (
